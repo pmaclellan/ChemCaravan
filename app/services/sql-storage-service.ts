@@ -2,7 +2,6 @@ import {Storage, SqlStorage} from 'ionic-angular';
 import {Injectable} from 'angular2/core';
 
 export class Player {
-  id: number;
   name: string;
   caps: number;
   bank: number;
@@ -11,7 +10,25 @@ export class Player {
   guards: number;
   brahmin: number;
   location: number;
+
+  constructor(name: string) {
+    this.name = name;
+    this.caps = 500;
+    this.bank = 0;
+    this.debt = 500;
+    this.health = 100;
+    this.guards = 0;
+    this.brahmin = 0;
+    this.location = 0;
+  }
 }
+
+export class Chem {
+  name: string;
+  basePrice: number;
+  stdDev: number;
+}
+
 
 @Injectable()
 export class SqlService {
@@ -20,7 +37,7 @@ export class SqlService {
   // Init an empty DB if it does not exist by now!
   constructor() {
     this.storage = new Storage(SqlStorage);
-    this.storage.query(`CREATE TABLE IF NOT EXISTS players (
+    /*this.storage.query(`CREATE TABLE IF NOT EXISTS players (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       name TEXT, 
       caps INTEGER,
@@ -29,7 +46,21 @@ export class SqlService {
       health INTEGER,
       guards INTEGER,
       brahmin INTEGER,
-      location INTEGER FOREIGN KEY)`);
+      location INTEGER FOREIGN KEY)`);*/
+  }
+
+  savePlayerState(player: Player) {
+    this.storage.set('player', JSON.stringify(player));
+  }
+
+  clearPlayerState() {
+     this.storage.remove('player');
+  }
+
+  loadPlayerState(): any {
+    return this.storage.get('player').then( (value) => {
+      return (value) ? JSON.parse(value) : value; // <-- Simply check if the value is undefined before parsing.
+    })
   }
 
 }
