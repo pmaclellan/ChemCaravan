@@ -12,6 +12,7 @@ export class HomePage {
   }
 
   goToLocalLogin() {
+    console.log('entered goToLocalLogin()')
     this.nav.push(LocalLoginPage);
   }
 

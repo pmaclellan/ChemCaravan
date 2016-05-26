@@ -1,5 +1,5 @@
 import {Storage, SqlStorage} from 'ionic-angular';
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 
 export class Player {
   name: string;
@@ -50,17 +50,22 @@ export class SqlService {
   }
 
   savePlayerState(player: Player) {
+    console.log('entered savePlayerState()');
     this.storage.set('player', JSON.stringify(player));
   }
 
   clearPlayerState() {
-     this.storage.remove('player');
+    console.log('entered clearPlayerState()');
+    this.storage.remove('player');
   }
 
-  loadPlayerState(): any {
-    return this.storage.get('player').then( (value) => {
+  loadPlayerState() {
+    console.log('entered loadPlayerState()');
+    return this.storage.get('player').then((value) => {
       return (value) ? JSON.parse(value) : value; // <-- Simply check if the value is undefined before parsing.
-    })
+    }, function(error) {
+      console.error('Failed', error);
+    });
   }
 
 }

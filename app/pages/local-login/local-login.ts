@@ -5,12 +5,14 @@ import {SqlService, Player} from '../../services/sql-storage-service';
   templateUrl: 'build/pages/local-login/local-login.html'
 })
 export class LocalLoginPage {
-  private nav: NavController = null;
-  private player: Player = null;
+  private nav: NavController;
+  private sqlService: SqlService;
+  private player: any;
 
-  constructor(nav: NavController) {
+  constructor(nav: NavController, sqlService: SqlService) {
     this.nav = nav;
-    this.player = SqlService.loadPlayerState();
+    this.sqlService = new SqlService();
+    this.player = this.sqlService.loadPlayerState();
   }
 
   continue() {
@@ -18,7 +20,7 @@ export class LocalLoginPage {
   }
 
   startNewGame() {
-    SqlService.clearPlayerState();
+    this.sqlService.clearPlayerState();
     console.log('start a new game')
   }
 }
