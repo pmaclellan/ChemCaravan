@@ -1,8 +1,10 @@
 import {Page, NavController} from 'ionic-angular';
-import {SqlService, Player} from '../../services/sql-storage-service';
+import {SqlService, Player} from '../../providers/services/sql-storage-service';
+import {Settlement, SettlementService} from '../../provides/services/settlement-service';
 
 @Page({
-  templateUrl: 'build/pages/local-login/local-login.html'
+  templateUrl: 'build/pages/local-login/local-login.html',
+  providers: [SqlService, SettlementService]
 })
 export class LocalLoginPage {
   private nav: NavController;
@@ -10,7 +12,9 @@ export class LocalLoginPage {
   private player: any;
   private showSignup: Boolean;
 
-  constructor(nav: NavController, sqlService: SqlService) {
+  constructor(nav: NavController, 
+              sqlService: SqlService, 
+              settlementService: SettlementService) {
     this.nav = nav;
     this.sqlService = new SqlService();
     this.player = this.sqlService.loadPlayerState();
