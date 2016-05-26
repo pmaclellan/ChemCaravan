@@ -32,7 +32,8 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard",
-    "cordova-plugin-device"
+    "cordova-plugin-device",
+    "cordova-sqlite-storage"
   ],
   "cordovaPlatforms": [],
   "name": "chem_caravan",
