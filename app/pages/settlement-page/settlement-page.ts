@@ -8,8 +8,18 @@ import {SqlService} from '../../providers/services/sql-storage-service';
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
 	providers: [SqlService, SettlementService]
 })
-export class LocalLoginPage {
+export class SettlementPage {
 	private nav: NavController;
+	private navParams: NavParams;
 	private sqlService: SqlService;
-	private player: any;
+	private player: Player;
+
+	constructor(nav: NavController, navParams: NavParams, sqlService: SqlService) {
+		this.nav = nav;
+		this.navParams = navParams;
+		this.sqlService = sqlService;
+
+		this.player = navParams.get('player');
+		console.log(this.player.name + " has arrived at...");
+	}
 }

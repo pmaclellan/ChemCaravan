@@ -2,6 +2,7 @@ import {Page, NavController} from 'ionic-angular';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {Settlement} from '../../providers/classes/settlement';
+import {SettlementPage} from '../settlement-page/settlement-page';
 import {Player} from '../../providers/classes/player';
 
 
@@ -20,18 +21,22 @@ export class LocalLoginPage {
               settlementService: SettlementService) {
     this.nav = nav;
     this.sqlService = new SqlService();
-    //I have no idea how this Promise stuff works...
-    this.sqlService.loadPlayerState().then(function(player) {
-      resolve(player);
-    }, function(error) {
-      console.log(error);
-    });
     this.showSignup = false;
+
+    this.sqlService.loadPlayerState().then((player) => {
+      console.log('player loaded: ' + player);
+      this.player = (player) ? JSON.parse(player) : player;
+    }, function(error) {
+      console.error('Failed to load player state', error);
+    });
   }
 
   continue() {
     console.log('continue with player ' + this.player.name);
-    this.sqlService.loadPlayerState();
+    // pass the loaded player state to initialize the settlement
+    this.nav.setRoot(SettlementPage, {
+      player: this.player
+    });
   }
 
   startNewGame() {

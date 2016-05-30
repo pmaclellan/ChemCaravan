@@ -22,12 +22,7 @@ export class SqlService {
 
   loadPlayerState() {
     console.log('entered loadPlayerState()');
-    return this.storage.get('player').then((value) => {
-      console.log('player loaded: ' + value);
-      return (value) ? JSON.parse(value) : value; // <-- Simply check if the value is undefined before parsing.
-    }, function(error) {
-      console.error('Failed', error);
-    });
+    return this.storage.get('player');
   }
 
 }
