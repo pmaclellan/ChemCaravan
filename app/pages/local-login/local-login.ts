@@ -13,6 +13,7 @@ import {Player} from '../../providers/classes/player';
 export class LocalLoginPage {
   private nav: NavController;
   private sqlService: SqlService;
+  private settlementService: SettlementService;
   private player: Player;
   private showSignup: Boolean;
 
@@ -29,13 +30,18 @@ export class LocalLoginPage {
     }, function(error) {
       console.error('Failed to load player state', error);
     });
+
+    this.settlementService = new SettlementService();
   }
 
   continue() {
     console.log('continue with player ' + this.player.name);
+    let last_known_whereabouts = this.player.location || 0;
+    let player_location = this.settlementService.getSettlement(last_known_whereabouts);
     // pass the loaded player state to initialize the settlement
     this.nav.setRoot(SettlementPage, {
-      player: this.player
+      player: this.player,
+      settlement: player_location
     });
   }
 

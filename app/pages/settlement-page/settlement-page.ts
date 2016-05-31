@@ -13,6 +13,7 @@ export class SettlementPage {
 	private navParams: NavParams;
 	private sqlService: SqlService;
 	private player: Player;
+	private settlement: Settlement;
 
 	constructor(nav: NavController, navParams: NavParams, sqlService: SqlService) {
 		this.nav = nav;
@@ -20,6 +21,7 @@ export class SettlementPage {
 		this.sqlService = sqlService;
 
 		this.player = navParams.get('player');
-		console.log(this.player.name + " has arrived at...");
+		this.settlement = navParams.get('settlement');
+		console.log(this.player.name + " has arrived in " + this.settlement.name);
 	}
 }
