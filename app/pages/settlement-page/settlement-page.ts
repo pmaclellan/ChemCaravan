@@ -22,6 +22,5 @@ export class SettlementPage {
 
 		this.player = navParams.get('player');
 		this.settlement = navParams.get('settlement');
-		console.log(this.player.name + " has arrived in " + this.settlement.name);
 	}
 }

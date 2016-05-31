@@ -35,8 +35,7 @@ export class LocalLoginPage {
   }
 
   continue() {
-    console.log('continue with player ' + this.player.name);
-    let last_known_whereabouts = this.player.location || 0;
+    let last_known_whereabouts = this.player.location;
     let player_location = this.settlementService.getSettlement(last_known_whereabouts);
     // pass the loaded player state to initialize the settlement
     this.nav.setRoot(SettlementPage, {
@@ -57,5 +56,6 @@ export class LocalLoginPage {
     console.log('player created: ' + name);
     this.sqlService.savePlayerState(this.player);
     console.log('player saved');
+    this.continue();
   }
 }
