@@ -1,6 +1,10 @@
 import {Page, NavController} from 'ionic-angular';
-import {SqlService, Player} from '../../providers/services/sql-storage-service';
-import {Settlement, SettlementService} from '../../provides/services/settlement-service';
+import {SqlService} from '../../providers/services/sql-storage-service';
+import {SettlementService} from '../../providers/services/settlement-service';
+import {Settlement} from '../../providers/classes/settlement';
+import {SettlementPage} from '../settlement-page/settlement-page';
+import {Player} from '../../providers/classes/player';
+
 
 @Page({
   templateUrl: 'build/pages/local-login/local-login.html',
@@ -9,7 +13,8 @@ import {Settlement, SettlementService} from '../../provides/services/settlement-
 export class LocalLoginPage {
   private nav: NavController;
   private sqlService: SqlService;
-  private player: any;
+  private settlementService: SettlementService;
+  private player: Player;
   private showSignup: Boolean;
 
   constructor(nav: NavController, 
@@ -17,13 +22,26 @@ export class LocalLoginPage {
               settlementService: SettlementService) {
     this.nav = nav;
     this.sqlService = new SqlService();
-    this.player = this.sqlService.loadPlayerState();
     this.showSignup = false;
+
+    this.sqlService.loadPlayerState().then((player) => {
+      console.log('player loaded: ' + player);
+      this.player = (player) ? JSON.parse(player) : player;
+    }, function(error) {
+      console.error('Failed to load player state', error);
+    });
+
+    this.settlementService = new SettlementService();
   }
 
   continue() {
-    console.log('continue with player ' + this.player.name);
-    this.sqlService.loadPlayerState();
+    let last_known_whereabouts = this.player.location;
+    let player_location = this.settlementService.getSettlement(last_known_whereabouts);
+    // pass the loaded player state to initialize the settlement
+    this.nav.setRoot(SettlementPage, {
+      player: this.player,
+      settlement: player_location
+    });
   }
 
   startNewGame() {
@@ -38,5 +56,6 @@ export class LocalLoginPage {
     console.log('player created: ' + name);
     this.sqlService.savePlayerState(this.player);
     console.log('player saved');
+    this.continue();
   }
 }

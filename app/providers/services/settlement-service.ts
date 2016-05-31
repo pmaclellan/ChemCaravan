@@ -1,5 +1,7 @@
+import {Injectable} from '@angular/core'; 
 import {Settlement} from '../classes/settlement'
 
+@Injectable()
 export class SettlementService {
   private settlements: Settlement[];
 
@@ -16,7 +18,7 @@ export class SettlementService {
   }
 
   getSettlement(index: number) {
-    if (index > 0 && index < this.settlements.length) {
+    if (index >= 0 && index < this.settlements.length) {
       return this.settlements[index];
     } else {
       return null;

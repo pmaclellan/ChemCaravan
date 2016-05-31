@@ -1,0 +1,30 @@
+<ion-navbar *navbar>
+  <button menuToggle side="left">
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>
+    {{settlement.name}}
+  </ion-title>
+</ion-navbar>
+
+<ion-menu side="left" [content]="mycontent">
+  <ion-toolbar>
+    <ion-title>Settlements</ion-title>
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item *ngFor="let settlement of settlements" 
+                       (click)="travelTo(settlement)">
+          {{settlement.name}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <p>Name: {{player.name}}</p>
+  <p>Caps: {{player.caps}}</p>
+</ion-content>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
