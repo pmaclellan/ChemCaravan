@@ -1,0 +1,18 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Buy
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+  <form [ngFormModel]="buyForm" (ngSubmit)="onSubmit(buyForm.value)">
+    <h1>{{chem.name}} [{{chem.currentPrice}} caps each]</h1>
+    <ion-item [class.error]="!quantity.valid && quantity.touched">
+      <ion-label floating>Quantity (max: {{maxPurchaseable}})</ion-label>
+      <ion-input type="number" [ngFormControl]="quantity"></ion-input>
+    </ion-item>
+    <button type="submit" [disabled]="!buyForm.valid" block>
+      Buy for {{quantity.value * chem.currentPrice}} caps
+    </button>
+  </form>
+</ion-content>

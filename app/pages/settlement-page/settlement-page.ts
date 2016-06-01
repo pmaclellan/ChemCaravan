@@ -5,6 +5,7 @@ import {Settlement} from '../../providers/classes/settlement';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {ChemService} from '../../providers/services/chem-service';
+import {BuyChemPage} from '../buy-chem/buy-chem';
 
 @Page({
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
@@ -41,4 +42,11 @@ export class SettlementPage {
     // this.menu.open();
     this.availableChems = chemService.generateChemSet();
 	}
+
+  buy(chem: Chem) {
+    this.nav.push(BuyChemPage, {
+      player: this.player,
+      chem: chem
+    })
+  }
 }
