@@ -24,9 +24,13 @@ export class LocalLoginPage {
     this.sqlService = new SqlService();
     this.showSignup = false;
 
-    this.sqlService.loadPlayerState().then((player) => {
-      console.log('player loaded: ' + player);
-      this.player = (player) ? JSON.parse(player) : player;
+    this.sqlService.loadPlayerState().then((playerState) => {
+      console.log('player loaded: ' + playerState);
+      //create the Player object if a stored state was successfully retrieved
+      if (playerState) {
+        let playerShadow = JSON.parse(playerState);
+        this.player = new Player(playerShadow.name, playerShadow);
+      }
     }, function(error) {
       console.error('Failed to load player state', error);
     });
