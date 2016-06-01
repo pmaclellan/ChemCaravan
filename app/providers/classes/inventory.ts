@@ -23,6 +23,11 @@ export class Inventory {
     }
   }
 
+  //this is sort of a hack, only meant to be used when reloading player state
+  setChems(chems: { [chem: string]: { quantity: number, price_paid: number } }) {
+    this.chems = chems;
+  }
+
   addChem(chem: Chem, quantity_added: number, price: number) {
     if (chem.name in this.chems) {
       let old_record = this.chems[chem.name];
