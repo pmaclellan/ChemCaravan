@@ -25,6 +25,11 @@
 <ion-content>
   <p>Name: {{player.name}}</p>
   <p>Caps: {{player.caps}}</p>
+  <ion-list>
+    <button ion-item *ngFor="let chem of availableChems">
+      {{chem.name}} @ {{chem.currentPrice}} caps
+    </button>
+  </ion-list>
 </ion-content>
 
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
