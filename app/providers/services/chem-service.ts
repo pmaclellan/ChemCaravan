@@ -40,7 +40,7 @@ export class ChemService {
   }
 
   private normalRand() : number {
-  return ((Math.random() + Math.random() + Math.random() + 
-           Math.random() + Math.random() + Math.random()) - 3) / 3;
+    return ((Math.random() + Math.random() + Math.random() + 
+             Math.random() + Math.random() + Math.random()) - 3) / 3;
   }
 }

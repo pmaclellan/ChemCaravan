@@ -26,9 +26,13 @@
   <p>Name: {{player.name}}</p>
   <p>Caps: {{player.caps}}</p>
   <ion-list>
-    <button ion-item *ngFor="let chem of availableChems">
-      {{chem.name}} @ {{chem.currentPrice}} caps
-    </button>
+    <ion-item *ngFor="let chem of availableChems">
+      <span>{{chem.name}}</span>
+      <button>Buy @ {{chem.currentPrice}} caps</button>
+      <button *ngIf="player.quantityCarrying(chem) > 0">
+        Sell ({{player.quantityCarrying(chem)}} @ {{player.pricePaid(chem)}} caps)
+      </button>
+    </ion-item>
   </ion-list>
 </ion-content>
 

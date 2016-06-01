@@ -1,3 +1,6 @@
+import {Inventory} from './inventory';
+import {Chem} from './chem';
+
 export class Player {
   name: string;
   caps: number;
@@ -7,6 +10,7 @@ export class Player {
   guards: number;
   brahmin: number;
   location: number;
+  inventory: Inventory;
 
   constructor(name: string) {
     this.name = name;
@@ -17,5 +21,14 @@ export class Player {
     this.guards = 0;
     this.brahmin = 0;
     this.location = 0;
+    this.inventory = new Inventory();
+  }
+
+  pricePaid(chem: Chem): number {
+    return this.inventory.getPricePaid(chem);
+  }
+
+  quantityCarrying(chem: Chem): number {
+    return this.inventory.getQuantity(chem);
   }
 }

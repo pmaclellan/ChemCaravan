@@ -7,6 +7,22 @@ export class Inventory {
     this.chems = {};
   }
 
+  getQuantity(chem: Chem): number {
+    if (chem.name in this.chems) {
+      return this.chems[chem.name].quantity;
+    } else {
+      return 0;
+    }
+  }
+
+  getPricePaid(chem: Chem): number {
+    if (chem.name in this.chems) {
+      return this.chems[chem.name].price_paid;
+    } else {
+      return null;
+    }
+  }
+
   addChem(chem: Chem, quantity_added: number, price: number) {
     if (chem.name in this.chems) {
       let old_record = this.chems[chem.name];
