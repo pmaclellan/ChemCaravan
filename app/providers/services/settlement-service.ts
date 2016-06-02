@@ -8,8 +8,14 @@ export class SettlementService {
   constructor() {
     this.settlements = [
       new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg'),
-      new Settlement(1, 'Concord', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg')
+      new Settlement(1, 'Park Street', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg'),
+      new Settlement(3, 'Concord', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(6, 'Jamaica Plain', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(7, 'Quincy', '/img/settlements/concord-aerial.jpg'),
+      new Settlement(8, 'Cambridge', '/img/settlements/concord-aerial.jpg')
     ]
   }
 
