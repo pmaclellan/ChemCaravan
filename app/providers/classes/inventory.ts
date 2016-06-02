@@ -28,18 +28,18 @@ export class Inventory {
     this.chems = chems;
   }
 
-  addChem(chem: Chem, quantity_added: number, price: number) {
+  addChem(chem: Chem, quantity_added: number) {
     if (chem.name in this.chems) {
       let old_record = this.chems[chem.name];
 
       let old_total_value = old_record.quantity * old_record.price_paid;
       let new_quantity = old_record.quantity + quantity_added;
-      let new_total_value = old_total_value + quantity_added * price;
+      let new_total_value = old_total_value + quantity_added * chem.currentPrice;
       let new_price = new_total_value / new_quantity;
 
       this.chems[chem.name] = { quantity: new_quantity, price_paid: new_price };
     } else {
-      this.chems[chem.name] = { quantity: quantity_added, price_paid: price };
+      this.chems[chem.name] = { quantity: quantity_added, price_paid: chem.currentPrice };
     }
   }
 

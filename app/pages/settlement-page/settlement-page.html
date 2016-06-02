@@ -28,7 +28,7 @@
   <ion-list>
     <ion-item *ngFor="let chem of availableChems">
       <span>{{chem.name}}</span>
-      <button>Buy @ {{chem.currentPrice}} caps</button>
+      <button (click)="buy(chem)">Buy @ {{chem.currentPrice}} caps</button>
       <button *ngIf="player.quantityCarrying(chem) > 0">
         Sell ({{player.quantityCarrying(chem)}} @ {{player.pricePaid(chem)}} caps)
       </button>
