@@ -34,4 +34,9 @@ export class Player {
   quantityCarrying(chem: Chem): number {
     return this.inventory.getQuantity(chem);
   }
+
+  purchase(chem: Chem, quantity: number) {
+    this.bank -= chem.currentPrice * quantity;
+    this.inventory.addChem(chem, quantity);
+  }
 }

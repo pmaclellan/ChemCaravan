@@ -6,7 +6,8 @@ import {SqlService} from '../../providers/services/sql-storage-service';
 
 @Page({
   templateUrl: 'build/pages/buy-chem/buy-chem.html',
-  providers: [SqlService]
+  providers: [SqlService],
+  directives: [FORM_DIRECTIVES]
 })
 export class BuyChemPage {
   private nav: NavController;
@@ -36,7 +37,15 @@ export class BuyChemPage {
 
   onSubmit(value: number): void {
     if (this.buyForm.valid) {
+      //do some bounds checking, this will be removed once Ionic 2 adds range sliders
+      if (this.quantity.value < 0 || this.quantity.value > this.maxPurchaseable) {
+        alert("check your bounds and try again");
+        return;
+      }
       console.log('Submitted value: ', value);
+      this.player.purchase(this.chem, this.quantity.value);
+      this.sqlService.savePlayerState(this.player);
+      this.nav.pop();
     }
   }
 }
