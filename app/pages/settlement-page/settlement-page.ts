@@ -6,6 +6,7 @@ import {SettlementService} from '../../providers/services/settlement-service';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {ChemService} from '../../providers/services/chem-service';
 import {BuyChemPage} from '../buy-chem/buy-chem';
+import {SellChemPage} from '../sell-chem/sell-chem';
 
 @Page({
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
@@ -64,5 +65,12 @@ export class SettlementPage {
       player: this.player,
       chem: chem
     })
+  }
+
+  sell(chem: Chem) {
+  	this.nav.push(SellChemPage, {
+  		player: this.player,
+  		chem: chem
+  	})
   }
 }

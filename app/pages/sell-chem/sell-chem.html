@@ -1,0 +1,20 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Sell
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+  <form [ngFormModel]="sellForm" (ngSubmit)="onSubmit(sellForm.value)">
+    <h1>{{chem.name}} [{{chem.currentPrice}} caps each]</h1>
+    <h2 *ngIf="getProfitMargin() <= 100">Profit Margin: {{getProfitMargin()}} %</h2>
+    <h2 *ngIf="getProfitMargin() > 100">You didn't even pay for these chems...sweet</h2>
+    <ion-item [class.error]="!quantity.valid && quantity.touched">
+      <ion-label floating>Quantity (max: {{maxSellable}})</ion-label>
+      <ion-input type="number" [ngFormControl]="quantity"></ion-input>
+    </ion-item>
+    <button type="submit" [disabled]="!sellForm.valid" block>
+      Sell for {{quantity.value * chem.currentPrice}} caps
+    </button>
+  </form>
+</ion-content>
