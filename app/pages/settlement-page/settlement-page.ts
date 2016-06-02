@@ -34,6 +34,7 @@ export class SettlementPage {
     this.menu = menu;
 
 		this.player = navParams.get('player');
+		this.sqlService.savePlayerState(this.player);
 		this.settlement = navParams.get('settlement');
     this.settlements = settlementService.getSettlements();
     //don't allow navigation to current settlement
@@ -41,6 +42,21 @@ export class SettlementPage {
     // console.log(this.menu.getMenus());
     // this.menu.open();
     this.availableChems = chemService.generateChemSet();
+	}
+
+	onPageWillEnter() {
+		/*reload the player state every time the page becomes active
+			to avoid stale data after a buy or sell */
+		this.sqlService.loadPlayerState().then((playerState) => {
+			console.log('player loaded: ' + playerState);
+			//create the Player object if a stored state was successfully retrieved
+			if (playerState) {
+				let playerShadow = JSON.parse(playerState);
+				this.player = new Player(playerShadow.name, playerShadow);
+			}
+		}, function(error) {
+			console.error('Failed to load player state', error);
+		});
 	}
 
   buy(chem: Chem) {

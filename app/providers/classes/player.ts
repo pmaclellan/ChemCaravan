@@ -36,7 +36,7 @@ export class Player {
   }
 
   purchase(chem: Chem, quantity: number) {
-    this.bank -= chem.currentPrice * quantity;
+    this.caps -= chem.currentPrice * quantity;
     this.inventory.addChem(chem, quantity);
   }
 }
