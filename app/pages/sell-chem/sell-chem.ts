@@ -55,7 +55,7 @@ export class SellChemPage {
       return Math.round( ((this.chem.currentPrice - this.player.pricePaid(this.chem)) / 
                            this.player.pricePaid(this.chem)) * 10000 ) / 100;
     } else {
-      return 101;
+      return null;
     }
   }
 }

@@ -7,8 +7,8 @@
 <ion-content>
   <form [ngFormModel]="sellForm" (ngSubmit)="onSubmit(sellForm.value)">
     <h1>{{chem.name}} [{{chem.currentPrice}} caps each]</h1>
-    <h2 *ngIf="getProfitMargin() <= 100">Profit Margin: {{getProfitMargin()}} %</h2>
-    <h2 *ngIf="getProfitMargin() > 100">You didn't even pay for these chems...sweet</h2>
+    <h2 *ngIf="getProfitMargin() != null">Profit Margin: {{getProfitMargin()}} %</h2>
+    <h2 *ngIf="getProfitMargin() == null">You didn't even pay for these chems...sweet</h2>
     <ion-item [class.error]="!quantity.valid && quantity.touched">
       <ion-label floating>Quantity (max: {{maxSellable}})</ion-label>
       <ion-input type="number" [ngFormControl]="quantity"></ion-input>

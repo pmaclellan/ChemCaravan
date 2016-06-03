@@ -35,6 +35,11 @@ export class Player {
     return this.inventory.getQuantity(chem);
   }
 
+  getAvailableSpace() {
+    //TODO: replace 20 with default player space
+    return (20 + this.brahmin * 10) - this.inventory.getTotalSpaceUsed();
+  }
+
   purchase(chem: Chem, quantity: number) {
     this.caps -= chem.currentPrice * quantity;
     this.inventory.addChem(chem, quantity);

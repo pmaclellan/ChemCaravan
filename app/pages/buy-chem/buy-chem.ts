@@ -28,6 +28,9 @@ export class BuyChemPage {
     this.player = navParams.get('player');
     this.chem = navParams.get('chem');
     this.maxPurchaseable = Math.floor(this.player.caps / this.chem.currentPrice);
+    if (this.maxPurchaseable > this.player.getAvailableSpace()) {
+      this.maxPurchaseable = this.player.getAvailableSpace();
+    }
 
     this.buyForm = fb.group({
       'quantity': ['', Validators.compose([Validators.required])]
