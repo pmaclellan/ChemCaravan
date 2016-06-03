@@ -23,6 +23,14 @@ export class Inventory {
     }
   }
 
+  getTotalSpaceUsed(): number {
+    let total: number = 0;
+    for (let key in this.chems) {
+      total += Number(this.chems[key].quantity);
+    }
+    return total;
+  }
+
   //this is sort of a hack, only meant to be used when reloading player state
   setChems(chems: { [chem: string]: { quantity: number, price_paid: number } }) {
     this.chems = chems;
