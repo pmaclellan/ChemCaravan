@@ -1,6 +1,6 @@
 <ion-navbar *navbar>
-  <button menuToggle side="left">
-    <ion-icon name="menu"></ion-icon>
+  <button side="left" (click)="presentTravelModal()">
+    <ion-icon name="map"></ion-icon>
   </button>
   <ion-title>
     {{settlement.name}}
