@@ -32,10 +32,10 @@ export class SettlementPage {
     this.menu = menu;
 
 		this.player = navParams.get('player');
-		this.sqlService.savePlayerState(this.player);
 		this.settlement = navParams.get('settlement');
-    // console.log(this.menu.getMenus());
-    // this.menu.open();
+    //update the player's current location now that we have arrived safely
+    this.player.location = this.settlement.index;
+    this.sqlService.savePlayerState(this.player);
     this.availableChems = chemService.generateChemSet();
 	}
 

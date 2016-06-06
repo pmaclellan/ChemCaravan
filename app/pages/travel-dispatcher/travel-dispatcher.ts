@@ -4,6 +4,7 @@ import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {ChemService} from '../../providers/services/chem-service';
+import {SettlementPage} from '../settlement-page/settlement-page';
 
 @Page({
   templateUrl: 'build/pages/travel-dispatcher/travel-dispatcher.html',
@@ -27,5 +28,21 @@ export class TravelDispatcherPage {
     this.messages = ["funny message 0", "funny message 1", "funny message 2"];
     let index = Math.floor(Math.random() * this.messages.length);
     this.message = this.messages[index];
+  }
+
+  onPageLoaded() {
+    let selector = Math.random();
+    if (selector < 0.5) {
+      this.nav.setRoot(SettlementPage, {
+        player: this.player,
+        settlement: this.destination
+      });
+    } else {
+      console.log("an event occurred");
+      this.nav.setRoot(SettlementPage, {
+        player: this.player,
+        settlement: this.destination
+      });
+    }
   }
 }
