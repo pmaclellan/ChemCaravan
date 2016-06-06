@@ -4,6 +4,7 @@ import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {ChemService} from '../../providers/services/chem-service';
+import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementPage} from '../settlement-page/settlement-page';
 
 @Page({
@@ -34,10 +35,9 @@ export class TravelDispatcherPage {
     this.accrueInterest();
     let selector = Math.random();
     if (selector < 0.5) {
-      this.nav.setRoot(SettlementPage, {
-        player: this.player,
-        settlement: this.destination
-      });
+      this.continueToDestination();
+    } else if (selector < 0.51) {
+      this.presentMuggedModal();
     } else {
       console.log("an event occurred");
       this.nav.setRoot(SettlementPage, {
@@ -50,5 +50,48 @@ export class TravelDispatcherPage {
   accrueInterest() {
     let new_debt = Math.floor(this.player.debt *= 1.01);
     this.player.debt = new_debt;
+  }
+
+  continueToDestination() {
+    this.nav.setRoot(SettlementPage, {
+      player: this.player,
+      settlement: this.destination
+    });
+  }
+
+  presentMuggedModal() {
+    let muggedModal = Modal.create(MuggedModalPage, { player: this.player });
+    muggedModal.onDismiss((player: Player) => {
+      this.player = player;
+      this.continueToDestination();
+    });
+    this.nav.present(muggedModal);
+  }
+}
+
+@Page({
+  templateUrl: 'build/pages/travel-dispatcher/mugged-modal.html',
+  providers: [SqlService]
+})
+class MuggedModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private player: Player;
+  private sqlService: SqlService;
+
+  constructor(nav: NavController, navParams: NavParams, 
+              viewCtrl: ViewController, sqlService: SqlService) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.player = this.navParams.get('player');
+    this.viewCtrl = viewCtrl;
+    this.sqlService = sqlService;
+  }
+
+  dismiss() {
+    this.player.caps = 0;
+    this.sqlService.savePlayerState(this.player);
+    this.viewCtrl.dismiss(this.player);
   }
 }
