@@ -7,6 +7,7 @@ import {SqlService} from '../../providers/services/sql-storage-service';
 import {ChemService} from '../../providers/services/chem-service';
 import {BuyChemPage} from '../buy-chem/buy-chem';
 import {SellChemPage} from '../sell-chem/sell-chem';
+import {TravelDispatcherPage} from '../travel-dispatcher/travel-dispatcher';
 
 @Page({
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
@@ -70,7 +71,12 @@ export class SettlementPage {
   presentTravelModal() {
     let travelModal = Modal.create(TravelModalPage, { settlment: this.settlement });
     travelModal.onDismiss((destination: Settlement) => {
-      console.log(destination);
+      if (destination != null) {
+        this.nav.setRoot(TravelDispatcherPage, {
+          player: this.player,
+          destination: destination
+        });
+      }
     });
     this.nav.present(travelModal);
   }
