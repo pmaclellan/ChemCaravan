@@ -11,7 +11,7 @@ export class Settlement {
 
   constructor(index: number, name: string, imageUrl: string, service: {
     name: string,
-    component: string
+    component: any
   }) {
     this.index = index;
     this.name = name;
