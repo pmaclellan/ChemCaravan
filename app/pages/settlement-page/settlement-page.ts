@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, MenuController} from 'ionic-angular';
+import {Page, NavController, NavParams, MenuController, Modal, ViewController} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
@@ -7,41 +7,35 @@ import {SqlService} from '../../providers/services/sql-storage-service';
 import {ChemService} from '../../providers/services/chem-service';
 import {BuyChemPage} from '../buy-chem/buy-chem';
 import {SellChemPage} from '../sell-chem/sell-chem';
+import {TravelDispatcherPage} from '../travel-dispatcher/travel-dispatcher';
 
 @Page({
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
-	providers: [SqlService, SettlementService, ChemService]
+	providers: [SqlService, ChemService]
 })
 export class SettlementPage {
 	private nav: NavController;
 	private navParams: NavParams;
 	private sqlService: SqlService;
-  private settlementService: SettlementService;
   private chemService: ChemService;
 	private player: Player;
 	private settlement: Settlement;
-  private settlements: Settlement[];
   private availableChems: Chem[];
   private menu: MenuController;
 
-	constructor(nav: NavController, navParams: NavParams, 
-							sqlService: SqlService, settlementService: SettlementService,
+	constructor(nav: NavController, navParams: NavParams, sqlService: SqlService,
 							chemService: ChemService, menu: MenuController) {
 		this.nav = nav;
 		this.navParams = navParams;
 		this.sqlService = sqlService;
-    this.settlementService = settlementService;
     this.chemService = chemService;
     this.menu = menu;
 
 		this.player = navParams.get('player');
-		this.sqlService.savePlayerState(this.player);
 		this.settlement = navParams.get('settlement');
-    this.settlements = settlementService.getSettlements();
-    //don't allow navigation to current settlement
-    this.settlements.filter((value: Settlement) => value != this.settlement);
-    // console.log(this.menu.getMenus());
-    // this.menu.open();
+    //update the player's current location now that we have arrived safely
+    this.player.location = this.settlement.index;
+    this.sqlService.savePlayerState(this.player);
     this.availableChems = chemService.generateChemSet();
 	}
 
@@ -72,5 +66,50 @@ export class SettlementPage {
   		player: this.player,
   		chem: chem
   	})
+  }
+
+  presentTravelModal() {
+    let travelModal = Modal.create(TravelModalPage, { settlement: this.settlement });
+    travelModal.onDismiss((destination: Settlement) => {
+      if (destination != null) {
+        this.nav.setRoot(TravelDispatcherPage, {
+          player: this.player,
+          destination: destination
+        });
+      }
+    });
+    this.nav.present(travelModal);
+  }
+}
+
+/*
+The TravelModalPage allows the player to select a settlement to travel to.
+Settlements are presented in a list which excludes the settlement the player is 
+currently at.
+*/
+@Page({
+  templateUrl: 'build/pages/settlement-page/travel-modal.html',
+  providers: [SettlementService]
+})
+class TravelModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private settlementService: SettlementService;
+  private settlement: Settlement;
+  private settlements: Settlement[];
+
+  constructor(nav: NavController, navParams: NavParams,
+              viewCtrl: ViewController, settlementService: SettlementService) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.settlementService = settlementService;
+    this.viewCtrl = viewCtrl;
+    this.settlement = navParams.get('settlement');
+    this.settlements = settlementService.getFilteredSettlements(this.settlement.index);
+  }
+
+  dismiss(destination: Settlement) {
+    this.viewCtrl.dismiss(destination);
   }
 }

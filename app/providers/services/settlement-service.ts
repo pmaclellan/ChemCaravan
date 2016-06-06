@@ -23,6 +23,12 @@ export class SettlementService {
     return this.settlements;
   }
 
+  getFilteredSettlements(indexToIgnore: number) {
+    return this.settlements.filter((value: Settlement) => {
+      return value.index != indexToIgnore;
+    });
+  }
+
   getSettlement(index: number) {
     if (index >= 0 && index < this.settlements.length) {
       return this.settlements[index];
