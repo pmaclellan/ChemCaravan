@@ -80,6 +80,15 @@ export class SettlementPage {
     });
     this.nav.present(travelModal);
   }
+
+  goToService() {
+    let service = this.settlement.service;
+    if (service != null) {
+      this.nav.push(service.component, {
+        player: this.player
+      })
+    }
+  }
 }
 
 /*
