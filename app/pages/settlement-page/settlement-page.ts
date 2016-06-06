@@ -69,7 +69,7 @@ export class SettlementPage {
   }
 
   presentTravelModal() {
-    let travelModal = Modal.create(TravelModalPage, { settlment: this.settlement });
+    let travelModal = Modal.create(TravelModalPage, { settlement: this.settlement });
     travelModal.onDismiss((destination: Settlement) => {
       if (destination != null) {
         this.nav.setRoot(TravelDispatcherPage, {
@@ -106,9 +106,7 @@ class TravelModalPage {
     this.settlementService = settlementService;
     this.viewCtrl = viewCtrl;
     this.settlement = navParams.get('settlement');
-    this.settlements = settlementService.getSettlements();
-    //don't allow navigation to current settlement
-    this.settlements.filter((value: Settlement) => value != this.settlement);
+    this.settlements = settlementService.getFilteredSettlements(this.settlement.index);
   }
 
   dismiss(destination: Settlement) {
