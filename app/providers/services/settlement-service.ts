@@ -10,7 +10,7 @@ export class SettlementService {
   constructor() {
     this.settlements = [
       new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', null),
-      new Settlement(1, 'Park Street', '/img/settlements/concord-aerial.jpg', 
+      new Settlement(1, 'Park Street Station', '/img/settlements/concord-aerial.jpg', 
                      { name: "Skinny Malone", component: LoansharkPage }),
       new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg', null),
       new Settlement(3, 'Bunker Hill', '/img/settlements/concord-aerial.jpg', 
