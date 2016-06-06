@@ -23,6 +23,14 @@ export class Inventory {
     }
   }
 
+  getTotalWorth(): number {
+    let total = 0;
+    for (let key in this.chems) {
+      total += Number(this.chems[key].price_paid * this.chems[key].quantity)
+    }
+    return total;
+  }
+
   getTotalSpaceUsed(): number {
     let total: number = 0;
     for (let key in this.chems) {

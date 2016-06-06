@@ -49,4 +49,9 @@ export class Player {
     this.caps += chem.currentPrice * quantity;
     this.inventory.removeChem(chem, quantity);
   }
+
+  //Used to determine maximum loan amount
+  netWorth(): number {
+    return this.caps + this.bank - this.debt + this.inventory.getTotalWorth();
+  }
 }
