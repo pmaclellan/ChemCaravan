@@ -31,6 +31,7 @@ export class TravelDispatcherPage {
   }
 
   onPageLoaded() {
+    this.accrueInterest();
     let selector = Math.random();
     if (selector < 0.5) {
       this.nav.setRoot(SettlementPage, {
@@ -44,5 +45,10 @@ export class TravelDispatcherPage {
         settlement: this.destination
       });
     }
+  }
+
+  accrueInterest() {
+    let new_debt = Math.floor(this.player.debt *= 1.01);
+    this.player.debt = new_debt;
   }
 }

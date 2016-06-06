@@ -1,0 +1,31 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Buy
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+    <p>Current Debt: {{player.debt}} caps</p>
+    <p>Credit Limit: {{creditLimit}} caps</p>
+    <ion-item>
+      <ion-label floating>Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="amount"></ion-input>
+    </ion-item>
+    <button (click)="pay(amount)" block>
+      Pay {{amount}} caps
+    </button>
+    <button (click)="loan(amount)" block>
+      Loan {{amount}} caps
+    </button>
+
+    <p class="error" *ngIf="message != null">
+      {{message}}
+    </p>
+
+    <p *ngIf="loanTaken">
+      Skinny says, "Don't make me come find you, kid."
+    </p>
+    <p *ngIf="paymentMade">
+      Skinny says, "It's about time you settled up, kid."
+    </p>
+</ion-content>

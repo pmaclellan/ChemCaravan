@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core'; 
 import {Settlement} from '../classes/settlement'
+import {LoansharkPage} from '../../pages/loanshark/loanshark';
+import {CaravanHqPage} from '../../pages/caravan-hq/caravan-hq';
 
 @Injectable()
 export class SettlementService {
@@ -7,15 +9,17 @@ export class SettlementService {
 
   constructor() {
     this.settlements = [
-      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg'),
-      new Settlement(1, 'Park Street', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg'),
-      new Settlement(3, 'Concord', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(6, 'Jamaica Plain', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(7, 'Quincy', '/img/settlements/concord-aerial.jpg'),
-      new Settlement(8, 'Cambridge', '/img/settlements/concord-aerial.jpg')
+      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', null),
+      new Settlement(1, 'Park Street Station', '/img/settlements/concord-aerial.jpg', 
+                     { name: "Skinny Malone", component: LoansharkPage }),
+      new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg', null),
+      new Settlement(3, 'Bunker Hill', '/img/settlements/concord-aerial.jpg', 
+                     { name: "Caravan HQ", component: CaravanHqPage }),
+      new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg', null),
+      new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg', null),
+      new Settlement(6, 'Jamaica Plain', '/img/settlements/concord-aerial.jpg', null),
+      new Settlement(7, 'Quincy', '/img/settlements/concord-aerial.jpg', null),
+      new Settlement(8, 'Cambridge', '/img/settlements/concord-aerial.jpg', null)
     ]
   }
 

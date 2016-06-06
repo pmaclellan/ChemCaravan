@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Caravan HQ
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+  <p>Welcome, {{player.name}}, to the caravan headquarters of the Commonwealth!</p>
+  <p>Here, you may purchase additional brahmin for your caravan. Each brahmin in
+     your caravan will allow you to carry an additional 10 chems. However, be
+     wary, as larger brahmin trains are more difficult to manage. As the number 
+     of brahmin in your caravan increases, so too does the risk of one running 
+     away when you travel between settlements.</p>
+  <button (click)="buyBrahmin()">
+    Buy a brahmin for 5000 caps
+  </button>
+  <p class="error" *ngIf="notEnoughCaps">
+    You do not have enough caps.
+  </p>
+  <p class="error" *ngIf="atCapacity">
+    You can only handle 10 brahmin at once.
+  </p>
+</ion-content>
