@@ -8,20 +8,44 @@
 </ion-navbar>
 
 <ion-content>
-  <p>Name: {{player.name}}</p>
-  <p>Caps: {{player.caps}}</p>
-  <button *ngIf="settlement.service" (click)="goToService()">
+  <button class="center" *ngIf="settlement.service" (click)="goToService()">
     {{settlement.service.name}}
   </button>
   <ion-list>
     <ion-item *ngFor="let chem of availableChems">
-      <span>{{chem.name}}</span>
-      <button (click)="buy(chem)">Buy @ {{chem.currentPrice}} caps</button>
-      <button (click)="sell(chem)" *ngIf="player.quantityCarrying(chem) > 0">
-        Sell ({{player.quantityCarrying(chem)}} @ {{player.pricePaid(chem)}} caps)
-      </button>
+      <div class="eqi-container">
+        <div class="center-vertical">
+          <span>{{chem.name}}</span>
+        </div>
+        <div class="center-vertical">
+          <button (click)="buy(chem)">Buy @ {{chem.currentPrice}} caps</button>
+        </div>
+        <div class="center-vertical">
+          <button (click)="sell(chem)" *ngIf="player.quantityCarrying(chem) > 0">
+            Sell ({{player.quantityCarrying(chem)}} @ {{player.pricePaid(chem)}} caps)
+          </button>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-toolbar position="bottom">
+  <div class="eqi-container">
+    <div class="top-padding impact-text">
+      <ion-icon name="cash" isActive="false"></ion-icon>
+      {{player.caps}}
+    </div>
+    <div class="center-vertical">
+      <button>
+        <ion-icon outline name="contact"></ion-icon>
+      </button>
+    </div>
+    <div class="top-padding impact-text">
+      <ion-icon name="archive" isActive="false"></ion-icon>
+      {{player.getAvailableSpace()}}
+    </div>
+  </div>
+</ion-toolbar>
 
 <ion-nav #mycontent [root]="rootPage"></ion-nav>

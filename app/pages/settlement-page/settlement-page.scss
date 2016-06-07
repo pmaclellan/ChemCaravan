@@ -1,0 +1,34 @@
+.eqi-container {
+  display: flex;
+  justify-content: space-between;
+}
+.eqi-container div {
+	display: flex;
+  width: 100px;
+  height: 50px;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.center {
+  margin-left: 34%;
+}
+
+.center-vertical {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.top-padding {
+	transform: translateY(25%);
+}
+
+.impact-text {
+	font-size: x-large;
+  font-family: impact;
+}
+
+#buy-button {
+	color: green;
+}
