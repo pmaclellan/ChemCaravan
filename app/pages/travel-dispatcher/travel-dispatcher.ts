@@ -34,16 +34,12 @@ export class TravelDispatcherPage {
   onPageLoaded() {
     this.accrueInterest();
     let selector = Math.random();
-    if (selector < 0.5) {
-      this.continueToDestination();
-    } else if (selector < 0.51) {
+    if (selector < 0.05) {
+      this.presentChemsFoundModal();
+    } else if (selector < 0.06) {
       this.presentMuggedModal();
     } else {
-      console.log("an event occurred");
-      this.nav.setRoot(SettlementPage, {
-        player: this.player,
-        settlement: this.destination
-      });
+      this.continueToDestination();
     }
   }
 
@@ -66,6 +62,15 @@ export class TravelDispatcherPage {
       this.continueToDestination();
     });
     this.nav.present(muggedModal);
+  }
+
+  presentChemsFoundModal() {
+    let chemsFoundModal = Modal.create(ChemsFoundModalPage, { player: this.player });
+    chemsFoundModal.onDismiss((player: Player) => {
+      this.player = player;
+      this.continueToDestination();
+    });
+    this.nav.present(chemsFoundModal);
   }
 }
 
@@ -92,6 +97,51 @@ class MuggedModalPage {
   dismiss() {
     this.player.caps = 0;
     this.sqlService.savePlayerState(this.player);
+    this.viewCtrl.dismiss(this.player);
+  }
+}
+
+@Page({
+  templateUrl: 'build/pages/travel-dispatcher/chems-found-modal.html',
+  providers: [SqlService, ChemService]
+})
+class ChemsFoundModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private player: Player;
+  private sqlService: SqlService;
+  private chemService: ChemService;
+  private chemFound: Chem;
+  private quantityFound: number;
+  private spaceAvailable: number;
+
+  constructor(nav: NavController, navParams: NavParams,
+    viewCtrl: ViewController, sqlService: SqlService, chemService: ChemService) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.player = this.navParams.get('player');
+    this.viewCtrl = viewCtrl;
+    this.sqlService = sqlService;
+    this.chemService = chemService;
+    //determine which chem was found
+    let index = Math.floor(Math.random() * this.chemService.numberOfChems());
+    this.chemFound = chemService.getChem(index);
+    this.chemFound.currentPrice = 0;
+    //generate a quantity between 1 and 10, inclusive
+    this.quantityFound = Math.floor(Math.random() * 10 + 1);
+    this.spaceAvailable = this.player.getAvailableSpace();
+  }
+
+  dismiss() {
+    if (this.spaceAvailable < this.quantityFound) {
+      this.quantityFound = this.spaceAvailable;
+    }
+    //don't add a 0 value record
+    if (this.quantityFound > 0) {
+      this.player.inventory.addChem(this.chemFound, this.quantityFound);
+      this.sqlService.savePlayerState(this.player);
+    }
     this.viewCtrl.dismiss(this.player);
   }
 }

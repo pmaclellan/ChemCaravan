@@ -33,6 +33,10 @@ export class ChemService {
     }
   }
 
+  numberOfChems(): number {
+    return this.chems.length;
+  }
+
   generateChemSet() : Chem[] {
     let result = [];
     for (let chem of this.chems) {
