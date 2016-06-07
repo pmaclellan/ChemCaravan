@@ -1,49 +1,65 @@
 <ion-navbar *navbar>
-  <button side="left" (click)="presentTravelModal()">
-    <ion-icon name="map"></ion-icon>
-  </button>
-  <ion-title>
-    {{settlement.name}}
+  <ion-title very-light>
+    <h2>{{settlement.name}}</h2>
   </ion-title>
+  <ion-buttons start>
+    <button disabled="true">
+      <ion-icon very-light name="cash" isActive="false"></ion-icon>
+      <span very-light>{{player.caps}}</span>
+    </button>
+  </ion-buttons>
+  <ion-buttons end>
+    <button disabled="true">
+      <ion-icon very-light name="archive" isActive="false"></ion-icon>
+      <span></span><span very-light>{{player.getAvailableSpace()}}</span>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
 <ion-content>
-  <button class="center" *ngIf="settlement.service" (click)="goToService()">
+  <button secondary class="center" *ngIf="settlement.service" (click)="goToService()">
     {{settlement.service.name}}
   </button>
-  <ion-list>
-    <ion-item *ngFor="let chem of availableChems">
-      <div class="eqi-container">
-        <div class="center-vertical">
-          <span>{{chem.name}}</span>
-        </div>
-        <div class="center-vertical">
-          <button (click)="buy(chem)">Buy @ {{chem.currentPrice}} caps</button>
-        </div>
-        <div class="center-vertical">
-          <button (click)="sell(chem)" *ngIf="player.quantityCarrying(chem) > 0">
-            Sell ({{player.quantityCarrying(chem)}} @ {{player.pricePaid(chem)}} caps)
+  <ion-list inset>
+    <ion-item class="light-bg" *ngFor="let chem of availableChems">
+      <ion-row>
+        <ion-col width-33 class="no-vertical-padding">
+          <h4 dark>{{chem.name}}</h4>
+          <p dark>{{chem.currentPrice}} caps each</p>
+          <p dark *ngIf="player.quantityCarrying(chem) > 0">
+              {{player.pricePaid(chem)}} avg. paid
+          </p>
+        </ion-col>
+        <ion-col width-33 class="no-vertical-padding">
+          <button block (click)="buy(chem)">Buy</button>
+        </ion-col>
+        <ion-col width-33 class="no-vertical-padding">
+          <button danger block (click)="sell(chem)" 
+                  *ngIf="player.quantityCarrying(chem) > 0">
+            Sell ({{player.quantityCarrying(chem)}})
           </button>
-        </div>
-      </div>
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-toolbar position="bottom">
-  <div class="eqi-container">
-    <div class="top-padding impact-text">
-      <ion-icon name="cash" isActive="false"></ion-icon>
-      {{player.caps}}
-    </div>
-    <div class="center-vertical">
-      <button>
-        <ion-icon outline name="contact"></ion-icon>
+  <div class="flex-container">
+    <div class="flex-element">
+      <button clear (click)="presentTravelModal()">
+        <ion-icon very-light name="map"></ion-icon>
       </button>
     </div>
-    <div class="top-padding impact-text">
-      <ion-icon name="archive" isActive="false"></ion-icon>
-      {{player.getAvailableSpace()}}
+    <div class="flex-element">
+      <button clear>
+        <ion-icon very-light name="contact"></ion-icon>
+      </button>
+    </div>
+    <div class="flex-element">
+      <button clear>
+        <ion-icon very-light name="more"></ion-icon>
+      </button>
     </div>
   </div>
 </ion-toolbar>
