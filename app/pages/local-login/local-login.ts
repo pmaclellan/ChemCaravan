@@ -1,4 +1,5 @@
-import {Page, NavController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {Settlement} from '../../providers/classes/settlement';
@@ -6,7 +7,7 @@ import {SettlementPage} from '../settlement-page/settlement-page';
 import {Player} from '../../providers/classes/player';
 
 
-@Page({
+@Component({
   templateUrl: 'build/pages/local-login/local-login.html',
   providers: [SqlService, SettlementService]
 })

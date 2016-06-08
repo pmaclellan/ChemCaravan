@@ -1,4 +1,5 @@
-import {Page, NavController, NavParams, Modal, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, Modal, ViewController} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
@@ -7,7 +8,7 @@ import {ChemService} from '../../providers/services/chem-service';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementPage} from '../settlement-page/settlement-page';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/travel-dispatcher/travel-dispatcher.html',
   providers: [ChemService]
 })
@@ -31,7 +32,7 @@ export class TravelDispatcherPage {
     this.message = this.messages[index];
   }
 
-  onPageLoaded() {
+  ionViewLoaded() {
     this.accrueInterest();
     let selector = Math.random();
     if (selector < 0.05) {
@@ -74,7 +75,7 @@ export class TravelDispatcherPage {
   }
 }
 
-@Page({
+@Component({
   templateUrl: 'build/pages/travel-dispatcher/mugged-modal.html',
   providers: [SqlService]
 })
@@ -101,7 +102,7 @@ class MuggedModalPage {
   }
 }
 
-@Page({
+@Component({
   templateUrl: 'build/pages/travel-dispatcher/chems-found-modal.html',
   providers: [SqlService, ChemService]
 })
