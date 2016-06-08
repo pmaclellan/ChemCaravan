@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Settlement} from '../classes/settlement'
 import {LoansharkPage} from '../../pages/loanshark/loanshark';
 import {CaravanHqPage} from '../../pages/caravan-hq/caravan-hq';
+import {BankPage} from '../../pages/bank/bank';
+import {DoctorPage} from '../../pages/doctor/doctor';
 
 @Injectable()
 export class SettlementService {
@@ -9,13 +11,15 @@ export class SettlementService {
 
   constructor() {
     this.settlements = [
-      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', null),
+      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', 
+                     { name: 'Doctor', component: DoctorPage }),
       new Settlement(1, 'Park Street Station', '/img/settlements/concord-aerial.jpg', 
-                     { name: "Skinny Malone", component: LoansharkPage }),
+                     { name: 'Skinny Malone', component: LoansharkPage }),
       new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg', null),
       new Settlement(3, 'Bunker Hill', '/img/settlements/concord-aerial.jpg', 
-                     { name: "Caravan HQ", component: CaravanHqPage }),
-      new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg', null),
+                     { name: 'Caravan HQ', component: CaravanHqPage }),
+      new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg', 
+                     { name: 'Bank', component: BankPage }),
       new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg', null),
       new Settlement(6, 'Jamaica Plain', '/img/settlements/concord-aerial.jpg', null),
       new Settlement(7, 'Quincy', '/img/settlements/concord-aerial.jpg', null),

@@ -9,11 +9,29 @@
 </ion-toolbar>
 
 <ion-content>
-  <h3>Select a settlement to travel to.</h3>
-  <ion-list>
-    <ion-item *ngFor="let settlement of settlements" (click)="dismiss(settlement)">
-      <span>{{settlement.name}}</span>
-      <span *ngIf="settlement.service != null">[ {{settlement.service.name}} ]</span>
+  <ion-list inset>
+    <ion-item class="medium-bg">
+      <ion-row>
+    <ion-col>
+      <h2>Settlement</h2>
+    </ion-col>
+    <ion-col>
+      <h2>Service</h2>
+    </ion-col>
+  </ion-row>
+    </ion-item>
+    <ion-item class="light-bg" *ngFor="let settlement of settlements" 
+              (click)="dismiss(settlement)">
+      <ion-row>
+        <ion-col>
+          <h3>{{settlement.name}}</h3>
+        </ion-col>
+        <ion-col>
+          <h3 *ngIf="settlement.service != null">
+            [ {{settlement.service.name}} ]
+          </h3>
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -1,0 +1,14 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Doctor
+  </ion-title>
+</ion-navbar>
+
+<ion-content padding class="bg-light">
+    <p>HP: {{player.health}}</p>
+    <p>Caps: {{player.caps}}</p>
+    <p>Medical Fee: {{fee}} caps</p>
+    <button (click)="heal()" block>
+      Fix Me Up
+    </button>
+</ion-content>

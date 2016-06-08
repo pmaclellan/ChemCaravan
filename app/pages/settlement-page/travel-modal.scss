@@ -1,0 +1,23 @@
+ion-col {
+  text-align: center;
+  max-width: 50%;
+}
+
+.item h2 {
+  font-size: large;
+  font-weight: bold;
+  color: color($colors, dark);
+}
+
+.item h3 {
+  font-size: medium;
+  color: color($colors, dark);
+}
+
+.medium-bg {
+  background-color: color($colors, medium);
+}
+
+.light-bg {
+  background-color: color($colors, light);
+}
