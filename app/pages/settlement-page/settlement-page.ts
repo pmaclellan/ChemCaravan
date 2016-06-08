@@ -1,4 +1,5 @@
-import {Page, NavController, NavParams, MenuController, Modal, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, MenuController, Modal, ViewController} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
@@ -9,7 +10,7 @@ import {BuyChemPage} from '../buy-chem/buy-chem';
 import {SellChemPage} from '../sell-chem/sell-chem';
 import {TravelDispatcherPage} from '../travel-dispatcher/travel-dispatcher';
 
-@Page({
+@Component({
 	templateUrl: 'build/pages/settlement-page/settlement-page.html',
 	providers: [SqlService, ChemService]
 })
@@ -39,7 +40,7 @@ export class SettlementPage {
     this.availableChems = chemService.generateChemSet();
 	}
 
-	onPageWillEnter() {
+	ionViewWillEnter() {
 		/*reload the player state every time the page becomes active
 			to avoid stale data after a buy or sell */
 		this.sqlService.loadPlayerState().then((playerState) => {
@@ -98,7 +99,7 @@ The TravelModalPage allows the player to select a settlement to travel to.
 Settlements are presented in a list which excludes the settlement the player is 
 currently at.
 */
-@Page({
+@Component({
   templateUrl: 'build/pages/settlement-page/travel-modal.html',
   providers: [SettlementService]
 })

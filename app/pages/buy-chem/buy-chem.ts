@@ -1,10 +1,11 @@
-import {Page, NavController, NavParams} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl} from '@angular/common';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {SqlService} from '../../providers/services/sql-storage-service';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/buy-chem/buy-chem.html',
   providers: [SqlService],
   directives: [FORM_DIRECTIVES]

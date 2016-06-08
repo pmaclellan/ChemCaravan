@@ -1,8 +1,9 @@
-import {Page, NavController, NavParams} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {SqlService} from '../../providers/services/sql-storage-service';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/loanshark/loanshark.html',
   providers: [SqlService]
 })
