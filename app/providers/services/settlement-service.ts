@@ -3,6 +3,7 @@ import {Settlement} from '../classes/settlement'
 import {LoansharkPage} from '../../pages/loanshark/loanshark';
 import {CaravanHqPage} from '../../pages/caravan-hq/caravan-hq';
 import {BankPage} from '../../pages/bank/bank';
+import {DoctorPage} from '../../pages/doctor/doctor';
 
 @Injectable()
 export class SettlementService {
@@ -10,7 +11,8 @@ export class SettlementService {
 
   constructor() {
     this.settlements = [
-      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', null),
+      new Settlement(0, 'Diamond City', '/img/settlements/diamond-city-overview.jpg', 
+                     { name: 'Doctor', component: DoctorPage }),
       new Settlement(1, 'Park Street Station', '/img/settlements/concord-aerial.jpg', 
                      { name: 'Skinny Malone', component: LoansharkPage }),
       new Settlement(2, 'Sanctuary Hills', '/img/settlements/sanctuary-hills.jpg', null),
