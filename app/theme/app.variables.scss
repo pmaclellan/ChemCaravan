@@ -26,9 +26,18 @@
 // are different per mode.
 
 $colors: (
-  primary:    #5385BA,
-  secondary:  #606349,
-  danger:     #771E20,
+  primary:    (
+    base:     #5385BA,
+    contrast: #FFF2D8
+  ),
+  secondary:  (
+    base:     #606349,
+    contrast: #FFF2D8
+  ),
+  danger:     (
+    base:     #771E20,
+    contrast: #FFF2D8
+  ),
   very-light: #FFF2D8,
   light:      #F2E2C1,
   medium:     #89714D,

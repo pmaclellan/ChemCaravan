@@ -1,0 +1,14 @@
+p {
+  color: color($colors, dark);
+  font-size: large;
+  font-weight: bold;
+}
+
+.bg-light {
+  background-color: color($colors, light);
+}
+
+.amount-select {
+  background-color: color($colors, very-light);
+  color: dark;
+}
