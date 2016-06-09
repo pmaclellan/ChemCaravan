@@ -4,6 +4,7 @@ import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
 import {SettlementPage} from '../settlement-page/settlement-page';
+import {LocalLoginPage} from '../local-login/local-login';
 import {SqlService} from '../../providers/services/sql-storage-service';
 
 @Component({
@@ -23,6 +24,7 @@ export class EncounterPage {
   private raiderHitChance: number;
   private raiderDamage: number;
   private playerEscaped: boolean;
+  private playerDied: boolean;
   private playerResultMessage: string;
   private statusMessage: string;
   private raiderResultMessage: string;
@@ -41,6 +43,7 @@ export class EncounterPage {
     this.raiderHitChance = 0.25;
     this.raiderDamage = 10;
     this.playerEscaped = false;
+    this.playerDied = false;
     this.playerResultMessage = '';
     this.statusMessage = this.numRaiders + 
       ' raiders have ambushed you! \nWhat do you do?';
@@ -79,10 +82,15 @@ export class EncounterPage {
   }
 
   continue() {
-    this.nav.setRoot(SettlementPage, {
-      player: this.player,
-      settlement: this.destination
-    });
+    if (this.playerDied) {
+      this.sqlService.clearPlayerState();
+      this.nav.setRoot(LocalLoginPage);
+    } else {
+      this.nav.setRoot(SettlementPage, {
+        player: this.player,
+        settlement: this.destination
+      });
+    }
   }
 
   raidersTakeTurn() {
@@ -92,6 +100,10 @@ export class EncounterPage {
       if (chance < this.raiderHitChance) {
         this.raiderResultMessage = 'You\'ve been hit!';
         this.player.health -= this.raiderDamage;
+        if (this.player.health <= 0) {
+          this.statusMessage = 'You died.';
+          this.playerDied = true;
+        }
         break;
       } else {
         this.raiderResultMessage = 'Miss!';
