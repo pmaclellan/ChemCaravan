@@ -1,0 +1,34 @@
+h2 {
+  text-align: center;
+}
+
+.bg-light {
+  background-color: color($colors, light);
+}
+
+.bg-medium {
+  background-color: color($colors, medium);
+}
+
+.text-very-light {
+  color: color($colors, very-light);
+}
+
+.spacer {
+  margin-bottom: 50px;
+}
+
+.static-height {
+  min-height: 25%;
+  max-height: 25%;
+}
+
+.bottom-button-group {
+  position: fixed;
+  bottom: 0;
+  width: 90%;
+}
+
+.bottom-button {
+  margin-bottom: 20px;
+}

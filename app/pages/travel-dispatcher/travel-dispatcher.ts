@@ -7,6 +7,7 @@ import {SettlementService} from '../../providers/services/settlement-service';
 import {ChemService} from '../../providers/services/chem-service';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementPage} from '../settlement-page/settlement-page';
+import {EncounterPage} from '../encounter/encounter';
 
 @Component({
   templateUrl: 'build/pages/travel-dispatcher/travel-dispatcher.html',
@@ -39,6 +40,11 @@ export class TravelDispatcherPage {
       this.presentChemsFoundModal();
     } else if (selector < 0.06) {
       this.presentMuggedModal();
+    } else if (selector < 0.2) {
+      this.nav.setRoot(EncounterPage, {
+        player: this.player,
+        destination: this.destination
+      });
     } else {
       this.continueToDestination();
     }
