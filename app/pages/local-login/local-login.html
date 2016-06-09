@@ -1,20 +1,34 @@
 <ion-navbar *navbar>
   <ion-title>
-    Chem Caravan (local)
+    Main Menu
   </ion-title>
 </ion-navbar>
 
-<ion-content>
-	<button (click)='continue()'>Continue</button>
-	<button (click)='startNewGame()'>New Game</button>
-	<div *ngIf='showSignup'>
+<ion-content padding class="bg-light">
+  <div class="game-title">
+    <h1>Chem</h1>
+    <h1>Caravan</h1>
+  </div>
+  <div class="bottom-button-group">
+  	<button block class="bottom-button" 
+            (click)="continue()" [disabled]="player == null">
+      Continue
+    </button>
+  	<button danger block  class="bottom-button"
+            (click)="getUserConfirmation()">
+      New Game
+    </button>
+  	<div *ngIf="showSignup">
+  	  	<ion-item>
+  	  		<ion-label floating>name</ion-label>
+  	  		<ion-textarea [(ngModel)]="name"></ion-textarea>
+  		</ion-item>
 
-	  	<ion-item>
-	  		<ion-label floating>name</ion-label>
-	  		<ion-textarea [(ngModel)]="name"></ion-textarea>
-		</ion-item>
-
-	  	<button (click)='createPlayer(name)'>Start</button>
-
-	</div>
+  	  	<button (click)="createPlayer(name)">Start</button>
+  	</div>
+    <button block class="bottom-button"
+            (click)="presentInstructionModal()">
+      Instructions
+    </button>
+  </div>
 </ion-content>
