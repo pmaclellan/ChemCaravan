@@ -3,13 +3,14 @@ import {NavController, NavParams} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
+import {SettlementPage} from '../settlement-page/settlement-page';
 import {SqlService} from '../../providers/services/sql-storage-service';
 
 @Component({
-  templateUrl: 'build/pages/travel-dispatcher/travel-dispatcher.html',
+  templateUrl: 'build/pages/encounter/encounter.html',
   providers: [SqlService]
 })
-export class TravelDispatcherPage {
+export class EncounterPage {
   private nav: NavController;
   private navParams: NavParams;
   private sqlService: SqlService;
@@ -60,7 +61,7 @@ export class TravelDispatcherPage {
     let chance = Math.random();
     if (chance < this.playerHitChance) {
       this.playerResultMessage = 'You killed a raider!';
-      this.numRaiders -= 1;
+      this.numRaiders = Number(this.numRaiders) - 1;
       if (this.numRaiders == 0) {
         this.statusMessage = 'All raiders are dead! \n You find ' +
           this.raiderMoney + ' caps on them.';
@@ -73,7 +74,15 @@ export class TravelDispatcherPage {
     this.raidersTakeTurn();
   }
 
+  continue() {
+    this.nav.setRoot(SettlementPage, {
+      player: this.player,
+      settlement: this.destination
+    });
+  }
+
   raidersTakeTurn() {
+    this.statusMessage = this.numRaiders + ' raiders are shooting...';
     for (let i = 0; i < this.numRaiders; i += 1) {
       let chance = Math.random();
       if (chance < this.raiderHitChance) {

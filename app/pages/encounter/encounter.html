@@ -5,6 +5,41 @@
 </ion-toolbar>
 
 <ion-content padding class="bg-light">
+  <ion-row>
+    <ion-col>
+      Health
+    </ion-col>
+    <ion-col>
+      {{player.health}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      Caps
+    </ion-col>
+    <ion-col>
+      {{player.caps}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      Guards
+    </ion-col>
+    <ion-col>
+      {{player.guards}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      Brahmin
+    </ion-col>
+    <ion-col>
+      {{player.brahmin}}
+    </ion-col>
+  </ion-row>
+
+  <div class="spacer"></div>
+
   <div *ngIf="!playerEscaped && numRaiders > 0">
     <h2 *ngIf="playerResultMessage != ''">
       {{playerResultMessage}}
@@ -13,13 +48,13 @@
     <h2 *ngIf="raiderResultMessage != ''">
       {{raiderResultMessage}}
     </h2>
-    <button (click)="run()">
-      Run ({{escapeChance}} %)
+    <button block (click)="run()">
+      Run ({{escapeChance * 100}} %)
     </button>
-    <button (click)="shoot()">
-      Shoot ({{hitChance}} %)
+    <button block danger (click)="shoot()">
+      Shoot ({{playerHitChance * 100}} %)
     </button>
-    <button (click)="bribe()">
+    <button block (click)="bribe()">
       Bribe
     </button>
   </div>
