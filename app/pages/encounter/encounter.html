@@ -5,62 +5,84 @@
 </ion-toolbar>
 
 <ion-content padding class="bg-light">
-  <ion-row>
-    <ion-col>
-      Health
-    </ion-col>
-    <ion-col>
-      {{player.health}}
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Caps
-    </ion-col>
-    <ion-col>
-      {{player.caps}}
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Guards
-    </ion-col>
-    <ion-col>
-      {{player.guards}}
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Brahmin
-    </ion-col>
-    <ion-col>
-      {{player.brahmin}}
-    </ion-col>
-  </ion-row>
+  <div class="bg-medium text-very-light">
+    <ion-row>
+      <ion-col>
+        Health
+      </ion-col>
+      <ion-col>
+        {{player.health}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Caps
+      </ion-col>
+      <ion-col>
+        {{player.caps}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Guards
+      </ion-col>
+      <ion-col>
+        {{player.guards}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Brahmin
+      </ion-col>
+      <ion-col>
+        {{player.brahmin}}
+      </ion-col>
+    </ion-row>
+  </div>
 
-  <div class="spacer"></div>
+  <div class="spacer">
+    <span></span>
+  </div>
 
   <div *ngIf="!playerEscaped && numRaiders > 0">
-    <h2 *ngIf="playerResultMessage != ''">
-      {{playerResultMessage}}
-    </h2>
-    <h2>{{statusMessage}}</h2>
-    <h2 *ngIf="raiderResultMessage != ''">
-      {{raiderResultMessage}}
-    </h2>
-    <button block (click)="run()">
-      Run ({{escapeChance * 100}} %)
-    </button>
-    <button block danger (click)="shoot()">
-      Shoot ({{playerHitChance * 100}} %)
-    </button>
-    <button block (click)="bribe()">
-      Bribe
-    </button>
+    <div class="static-height">
+      <h2 *ngIf="playerResultMessage != ''">
+        {{playerResultMessage}}
+      </h2>
+      <h2>{{statusMessage}}</h2>
+      <h2 *ngIf="raiderResultMessage != ''">
+        {{raiderResultMessage}}
+      </h2>
+    </div>
+
+    <div class="spacer">
+      <span></span>
+    </div>
+
+    <div class="bottom-button-group">
+      <button block class="bottom-button" 
+              (click)="run()" [disabled]="actionsDisabled">
+        Run ({{escapePercentage()}})
+      </button>
+      <button block danger class="bottom-button" 
+              (click)="shoot()" [disabled]="actionsDisabled">
+        Shoot ({{hitPercentage()}})
+      </button>
+      <button block class="bottom-button"
+              (click)="bribe()" [disabled]="actionsDisabled">
+        Bribe
+      </button>
+    </div>
   </div>
+
   <div *ngIf="playerEscaped || numRaiders == 0">
     <h2>{{statusMessage}}</h2>
-    <button (click)="continue()">
+
+    <div class="spacer">
+      <span></span>
+    </div>
+
+    <button block (click)="continue()">
       Continue
     </button>
   </div>

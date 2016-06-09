@@ -26,6 +26,7 @@ export class EncounterPage {
   private playerResultMessage: string;
   private statusMessage: string;
   private raiderResultMessage: string;
+  private actionsDisabled: boolean;
 
   constructor(nav: NavController, navParams: NavParams, sqlService: SqlService) {
     this.nav = nav;
@@ -44,9 +45,11 @@ export class EncounterPage {
     this.statusMessage = this.numRaiders + 
       ' raiders have ambushed you! \nWhat do you do?';
     this.raiderResultMessage = '';
+    this.actionsDisabled = false;
   }
 
   run() {
+    this.actionsDisabled = true;
     let chance = Math.random();
     if (chance < this.escapeChance) {
       this.playerEscaped = true;
@@ -58,6 +61,7 @@ export class EncounterPage {
   }
 
   shoot() {
+    this.actionsDisabled = true;
     let chance = Math.random();
     if (chance < this.playerHitChance) {
       this.playerResultMessage = 'You killed a raider!';
@@ -93,5 +97,14 @@ export class EncounterPage {
         this.raiderResultMessage = 'Miss!';
       }
     }
+    this.actionsDisabled = false;
+  }
+
+  escapePercentage(): string {
+    return Math.floor(this.escapeChance * 100) + '%';
+  }
+
+  hitPercentage(): string {
+    return Math.floor(this.playerHitChance * 100) + '%';
   }
 }
