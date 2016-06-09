@@ -40,7 +40,7 @@ export class TravelDispatcherPage {
       this.presentChemsFoundModal();
     } else if (selector < 0.06) {
       this.presentMuggedModal();
-    } else if (selector < 0.9) {
+    } else if (selector < 0.2) {
       this.nav.setRoot(EncounterPage, {
         player: this.player,
         destination: this.destination
