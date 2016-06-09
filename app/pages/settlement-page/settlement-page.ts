@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, MenuController, Modal, ViewController} from 'ionic-angular';
+import {NavController, NavParams, Modal, Toast, ViewController} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
 import {Settlement} from '../../providers/classes/settlement';
@@ -22,15 +22,14 @@ export class SettlementPage {
 	private player: Player;
 	private settlement: Settlement;
   private availableChems: Chem[];
-  private menu: MenuController;
+  private priceAlertMessages: string[];
 
 	constructor(nav: NavController, navParams: NavParams, sqlService: SqlService,
-							chemService: ChemService, menu: MenuController) {
+							chemService: ChemService) {
 		this.nav = nav;
 		this.navParams = navParams;
 		this.sqlService = sqlService;
     this.chemService = chemService;
-    this.menu = menu;
 
 		this.player = navParams.get('player');
 		this.settlement = navParams.get('settlement');
@@ -38,6 +37,7 @@ export class SettlementPage {
     this.player.location = this.settlement.index;
     this.sqlService.savePlayerState(this.player);
     this.availableChems = chemService.generateChemSet();
+    this.priceAlertMessages = this.generatePriceModifiers();
 	}
 
 	ionViewWillEnter() {
@@ -54,6 +54,12 @@ export class SettlementPage {
 			console.error('Failed to load player state', error);
 		});
 	}
+
+  ionViewLoaded() {
+    if (this.priceAlertMessages.length > 0) {
+      this.presentPriceAlerts();
+    }
+  }
 
   buy(chem: Chem) {
     this.nav.push(BuyChemPage, {
@@ -82,6 +88,16 @@ export class SettlementPage {
     this.nav.present(travelModal);
   }
 
+  presentPriceAlerts() {
+    let toastMessage = this.priceAlertMessages.join(' -- ');
+    let toast = Toast.create({
+      message: toastMessage,
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    });
+    this.nav.present(toast);
+  }
+
   goToService() {
     let service = this.settlement.service;
     console.log(service);
@@ -91,6 +107,24 @@ export class SettlementPage {
         player: this.player
       });
     }
+  }
+
+  generatePriceModifiers(): string[] {
+    let modifierMessages: string[] = [];
+    for (let chem of this.availableChems) {
+      let occurenceChance = Math.random();
+      if (occurenceChance < 0.05) {
+        let typeChance = Math.random();
+        if (typeChance < 0.5) {
+          chem.currentPrice = Math.floor(chem.currentPrice * 1.5);
+          modifierMessages.push(chem.highPriceMessage);
+        } else {
+          chem.currentPrice = Math.floor(chem.currentPrice * 0.5);
+          modifierMessages.push(chem.lowPriceMessage);
+        }
+      }
+    }
+    return modifierMessages;
   }
 }
 
