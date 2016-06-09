@@ -73,6 +73,7 @@ export class EncounterPage {
         this.statusMessage = 'All raiders are dead! \n You find ' +
           this.raiderMoney + ' caps on them.';
         this.player.caps += Number(this.raiderMoney);
+        this.sqlService.savePlayerState(this.player);
         return;
       }
     } else {
@@ -109,6 +110,7 @@ export class EncounterPage {
         this.raiderResultMessage = 'Miss!';
       }
     }
+    this.sqlService.savePlayerState(this.player);
     this.actionsDisabled = false;
   }
 
