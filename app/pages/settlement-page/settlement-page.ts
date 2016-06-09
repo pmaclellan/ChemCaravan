@@ -113,7 +113,7 @@ export class SettlementPage {
     let modifierMessages: string[] = [];
     for (let chem of this.availableChems) {
       let occurenceChance = Math.random();
-      if (occurenceChance < 0.1) {
+      if (occurenceChance < 0.05) {
         let typeChance = Math.random();
         if (typeChance < 0.5) {
           chem.currentPrice = Math.floor(chem.currentPrice * 1.5);
