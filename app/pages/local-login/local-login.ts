@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Alert} from 'ionic-angular';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {Settlement} from '../../providers/classes/settlement';
@@ -24,6 +24,7 @@ export class LocalLoginPage {
     this.nav = nav;
     this.sqlService = new SqlService();
     this.showSignup = false;
+    this.player = null;
 
     this.sqlService.loadPlayerState().then((playerState) => {
       console.log('player loaded: ' + playerState);
@@ -49,11 +50,40 @@ export class LocalLoginPage {
     });
   }
 
-  startNewGame() {
-    //TODO: a warning popup would be nice here
+  getUserConfirmation() {
+    if (this.player != null) {
+      this.presentConfirm();
+    } else {
+      this.newGame();
+    }
+  }
+
+  newGame() {
     this.sqlService.clearPlayerState();
-    console.log('start a new game')
     this.showSignup = true;
+  }
+
+  presentConfirm() {
+    let alert = Alert.create({
+      title: 'Start New Game?',
+      message: 'Your old character will be deleted.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.newGame();
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);
   }
 
   createPlayer(name: string) {

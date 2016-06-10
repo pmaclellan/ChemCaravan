@@ -1,0 +1,35 @@
+.bg-light {
+  background-color: color($colors, light);
+}
+
+.game-title {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.game-title h1 {
+  text-align: center;
+  font-size: 60px;
+  font-weight: bold;
+  margin: 0;
+  text-transform: uppercase;
+  color: color($colors, secondary);
+  -webkit-text-stroke: 2px color($colors, dark);
+}
+
+.bottom-button-group {
+  position: fixed;
+  bottom: 0;
+  width: 90%;
+}
+
+.bottom-button {
+  margin-bottom: 20px;
+}
+
+.onboarding {
+  margin-top: 400px;
+}
