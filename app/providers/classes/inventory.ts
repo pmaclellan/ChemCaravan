@@ -56,6 +56,7 @@ export class Inventory {
                             Number(quantity_added) * Number(chem.currentPrice);
       
       let new_price = Number(new_total_value) / Number(new_quantity);
+      new_price = Math.floor(Number(new_price) * 100.0) / 100.0;
 
       this.chems[chem.name] = { quantity: new_quantity, price_paid: new_price };
     } else {

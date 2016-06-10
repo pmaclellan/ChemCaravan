@@ -95,4 +95,8 @@ export class LocalLoginPage {
     console.log('player saved');
     this.continue();
   }
+
+  presentInstructionModal() {
+    alert("figure it out for yourself");
+  }
 }

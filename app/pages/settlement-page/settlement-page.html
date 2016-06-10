@@ -25,7 +25,7 @@
       <ion-row>
         <ion-col width-33 class="no-vertical-padding">
           <h4 dark>{{chem.name}}</h4>
-          <p dark>{{chem.currentPrice}} caps each</p>
+          <p dark>{{chem.currentPrice}} caps</p>
           <p dark *ngIf="player.quantityCarrying(chem) > 0">
               {{player.pricePaid(chem)}} avg. paid
           </p>
