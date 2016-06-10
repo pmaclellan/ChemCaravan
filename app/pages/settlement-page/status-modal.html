@@ -1,0 +1,91 @@
+<ion-toolbar>
+  <ion-title>Status</ion-title>
+  <ion-buttons start>
+    <button (click)="dismiss()">
+      <span very-light showWhen="ios">Cancel</span>
+      <ion-icon very-light name="md-close" showWhen="android,windows"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <ion-list inset>
+    <ion-item class="medium-bg">
+      <ion-row>
+        <ion-col>
+          <h3>{{player.name}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Caps</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.caps}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Bank</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.bank}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Debt</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.debt}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Health</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.health}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Brahmin</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.brahmin}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Space</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.getAvailableSpace()}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item class="light-bg">
+      <ion-row>
+        <ion-col>
+          <h3>Guards</h3>
+        </ion-col>
+        <ion-col>
+          <h3>{{player.guards}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

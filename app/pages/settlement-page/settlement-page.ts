@@ -88,6 +88,11 @@ export class SettlementPage {
     this.nav.present(travelModal);
   }
 
+  presentStatusModal() {
+    let statusModal = Modal.create(StatusModalPage, { player: this.player });
+    this.nav.present(statusModal);
+  }
+
   presentPriceAlerts() {
     let toastMessage = this.priceAlertMessages.join(' -- ');
     let toast = Toast.create({
@@ -157,5 +162,33 @@ class TravelModalPage {
 
   dismiss(destination: Settlement) {
     this.viewCtrl.dismiss(destination);
+  }
+}
+
+/*
+The StatusModalPage allows the player to see information about their current
+status, such as health, caps, bank, brahmin, etc.
+*/
+@Component({
+  templateUrl: 'build/pages/settlement-page/status-modal.html'
+})
+class StatusModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private player: Player;
+  private settlement: Settlement;
+  private settlements: Settlement[];
+
+  constructor(nav: NavController, navParams: NavParams,
+    viewCtrl: ViewController) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.viewCtrl = viewCtrl;
+    this.player = navParams.get('player');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }
