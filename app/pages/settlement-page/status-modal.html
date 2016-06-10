@@ -11,11 +11,7 @@
 <ion-content>
   <ion-list inset>
     <ion-item class="medium-bg">
-      <ion-row>
-        <ion-col>
-          <h3>{{player.name}}</h3>
-        </ion-col>
-      </ion-row>
+      <h1>{{player.name}}</h1>
     </ion-item>
     <ion-item class="light-bg">
       <ion-row>
@@ -88,4 +84,7 @@
       </ion-row>
     </ion-item>
   </ion-list>
+  <button block danger (click)="dismiss()">
+    Close
+  </button>
 </ion-content>

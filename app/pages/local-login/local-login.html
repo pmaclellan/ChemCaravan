@@ -25,9 +25,11 @@
   </div>
   <div class="onboarding" *ngIf="showSignup">
     <ion-item class="bg-light">
-      <ion-label floating>name</ion-label>
-      <ion-textarea [(ngModel)]="Name"></ion-textarea>
+      <ion-label floating>Name</ion-label>
+      <ion-textarea [(ngModel)]="name"></ion-textarea>
     </ion-item>
-    <button block (click)="createPlayer(name)">Start</button>
+    <button block [disabled]="name.length < 1" (click)="createPlayer()">
+      Start
+    </button>
   </div>
 </ion-content>

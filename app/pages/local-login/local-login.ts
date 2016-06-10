@@ -17,6 +17,7 @@ export class LocalLoginPage {
   private settlementService: SettlementService;
   private player: Player;
   private showSignup: Boolean;
+  private name: string;
 
   constructor(nav: NavController, 
               sqlService: SqlService, 
@@ -25,6 +26,7 @@ export class LocalLoginPage {
     this.sqlService = new SqlService();
     this.showSignup = false;
     this.player = null;
+    this.name = '';
 
     this.sqlService.loadPlayerState().then((playerState) => {
       console.log('player loaded: ' + playerState);
@@ -86,9 +88,9 @@ export class LocalLoginPage {
     this.nav.present(alert);
   }
 
-  createPlayer(name: string) {
-    this.player = new Player(name);
-    console.log('player created: ' + name);
+  createPlayer() {
+    this.player = new Player(this.name);
+    console.log('player created: ' + this.name);
     this.sqlService.savePlayerState(this.player);
     console.log('player saved');
     this.continue();
