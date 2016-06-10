@@ -3,6 +3,13 @@ ion-col {
   max-width: 50%;
 }
 
+.item h1 {
+  font-size: larger;
+  font-weight: bold;
+  color: color($colors, dark);
+  text-align: center;
+}
+
 .item h2 {
   font-size: large;
   font-weight: bold;
