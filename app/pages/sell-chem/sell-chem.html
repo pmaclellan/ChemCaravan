@@ -15,8 +15,14 @@
   <p *ngIf="player.guards > 0">
     Guard Share: {{getGuardsShare()}} caps
   </p>
-  <ion-item>
-    <ion-range min="1" [max]="maxSellable" pin="true" snaps="true" 
+
+  <div class="spacer">
+    <span></span>
+  </div>
+
+  <p>Quantity</p>
+  <ion-item class="bg-very-light">
+    <ion-range min="1" [max]="maxSellable" pin="true" 
                [(ngModel)]="quantity">
       <ion-label range-left>1</ion-label>
       <ion-label range-right>{{maxSellable}}</ion-label>

@@ -17,3 +17,15 @@ p {
 .bg-light {
   background-color: color($colors, light);
 }
+
+.bg-medium {
+  background-color: color($colors, medium);
+}
+
+.text-very-light {
+  color: color($colors, very-light);
+}
+
+.spacer {
+  margin-bottom: 50px;
+}
