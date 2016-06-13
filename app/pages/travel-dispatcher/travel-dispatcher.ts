@@ -21,6 +21,10 @@ export class TravelDispatcherPage {
   private destination: Settlement;
   private messages: string[];
   private message: string;
+  private chemsFoundChance: number = 0.05;
+  private muggedChance: number;
+  private encounterChance: number;
+  private runawayChance: number;
 
   constructor(nav: NavController, navParams: NavParams, chemService: ChemService) {
     this.nav = nav;
@@ -31,20 +35,24 @@ export class TravelDispatcherPage {
     this.messages = ["funny message 0", "funny message 1", "funny message 2"];
     let index = Math.floor(Math.random() * this.messages.length);
     this.message = this.messages[index];
+    this.muggedChance = 0.02 - this.player.guards * 0.003;
+    this.encounterChance = 0.3 - this.player.guards * 0.04;
+    this.runawayChance = 0.0 + this.player.brahmin * 0.015;
   }
 
   ionViewLoaded() {
     this.accrueInterest();
     let selector = Math.random();
-    if (selector < 0.05) {
+    if (selector < this.chemsFoundChance) {
       this.presentChemsFoundModal();
-    } else if (selector < 0.06) {
+    } else if (selector < this.chemsFoundChance + this.muggedChance) {
       this.presentMuggedModal();
-    } else if (selector < 0.2) {
-      this.nav.setRoot(EncounterPage, {
-        player: this.player,
-        destination: this.destination
-      });
+    } else if (selector < this.chemsFoundChance + this.muggedChance +
+               this.encounterChance) {
+      this.triggerEncounter();
+    } else if (selector < this.chemsFoundChance + this.muggedChance +
+               this.encounterChance + this.runawayChance) {
+      this.presentRunawayModal();
     } else {
       this.continueToDestination();
     }
@@ -79,6 +87,22 @@ export class TravelDispatcherPage {
     });
     this.nav.present(chemsFoundModal);
   }
+
+  presentRunawayModal() {
+    let runawayModal = Modal.create(RunawayModalPage, { player: this.player });
+    runawayModal.onDismiss((player: Player) => {
+      this.player = player;
+      this.continueToDestination();
+    });
+    this.nav.present(runawayModal);
+  }
+
+  triggerEncounter() {
+    this.nav.setRoot(EncounterPage, {
+      player: this.player,
+      destination: this.destination
+    });
+  }
 }
 
 @Component({
@@ -103,6 +127,34 @@ class MuggedModalPage {
 
   dismiss() {
     this.player.caps = 0;
+    this.sqlService.savePlayerState(this.player);
+    this.viewCtrl.dismiss(this.player);
+  }
+}
+
+@Component({
+  templateUrl: 'build/pages/travel-dispatcher/runaway-modal.html',
+  providers: [SqlService]
+})
+class RunawayModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private player: Player;
+  private sqlService: SqlService;
+
+  constructor(nav: NavController, navParams: NavParams,
+    viewCtrl: ViewController, sqlService: SqlService) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.player = this.navParams.get('player');
+    this.viewCtrl = viewCtrl;
+    this.sqlService = sqlService;
+  }
+
+  dismiss() {
+    this.player.brahmin -= 1;
+    this.player.inventory.removeOneBrahminsWorth(this.player.brahmin);
     this.sqlService.savePlayerState(this.player);
     this.viewCtrl.dismiss(this.player);
   }
