@@ -99,11 +99,29 @@ export class EncounterPage {
     for (let i = 0; i < this.numRaiders; i += 1) {
       let chance = Math.random();
       if (chance < this.raiderHitChance) {
-        this.raiderResultMessage = 'You\'ve been hit!';
-        this.player.health -= this.raiderDamage;
-        if (this.player.health <= 0) {
-          this.statusMessage = 'You died.';
-          this.playerDied = true;
+        let chance2 = Math.random();
+        if (this.player.brahmin < 1 && this.player.guards < 1) {
+          this.playerHit();
+        } else if (this.player.brahmin > 0 && this.player.guards < 1) {
+          if (chance2 < 0.5) {
+            this.playerHit();
+          } else {
+            this.brahminHit();
+          }
+        } else if (this.player.brahmin < 1 && this.player.guards > 0) {
+          if (chance2 < 0.5) {
+            this.playerHit();
+          } else {
+            this.guardHit();
+          }
+        } else if (this.player.brahmin > 0 && this.player.guards > 0) {
+          if (chance2 < 0.33) {
+            this.playerHit();
+          } else if (chance2 < 0.66) {
+            this.guardHit();
+          } else {
+            this.brahminHit();
+          }
         }
         break;
       } else {
@@ -120,5 +138,25 @@ export class EncounterPage {
 
   hitPercentage(): string {
     return Math.floor(this.playerHitChance * 100) + '%';
+  }
+
+  playerHit() {
+    this.raiderResultMessage = 'You\'ve been hit!';
+    this.player.health -= this.raiderDamage;
+    if (this.player.health <= 0) {
+      this.statusMessage = 'You died.';
+      this.playerDied = true;
+    }
+  }
+
+  guardHit() {
+    this.raiderResultMessage = 'One of your guards has been killed!';
+    this.player.guards -= 1;
+  }
+
+  brahminHit() {
+    this.raiderResultMessage = 'One of your brahmin has been killed!';
+    this.player.brahmin -= 1;
+    this.player.inventory.removeOneBrahminsWorth(this.player.brahmin);
   }
 }

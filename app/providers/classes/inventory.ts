@@ -75,4 +75,16 @@ export class Inventory {
       }
     }
   }
+
+  //remove a percentage of each chem carried when a brahmin dies or runs away
+  removeOneBrahminsWorth(remainingBrahmin: number) {
+    let decimationIndex = 0.64 + 0.03 * Number(remainingBrahmin);
+    for (let key in this.chems) {
+      this.chems[key].quantity = 
+        Math.round(this.chems[key].quantity * Number(decimationIndex));
+      if (this.chems[key].quantity <= 0) {
+        delete this.chems[key];
+      }
+    }
+  }
 }
