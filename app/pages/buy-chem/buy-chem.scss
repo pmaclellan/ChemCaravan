@@ -1,0 +1,31 @@
+h1 {
+  color: color($colors, very-light);
+  font-size: larger;
+  font-weight: bold;
+}
+
+h2 {
+  text-align: center;
+  color: color($colors, dark);
+}
+
+p {
+  text-align: center !important;
+  font-weight: normal !important;
+}
+
+.bg-light {
+  background-color: color($colors, light);
+}
+
+.bg-medium {
+  background-color: color($colors, medium);
+}
+
+.text-very-light {
+  color: color($colors, very-light);
+}
+
+.spacer {
+  margin-bottom: 50px;
+}

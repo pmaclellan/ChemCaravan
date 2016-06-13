@@ -1,0 +1,71 @@
+<ion-toolbar>
+  <ion-title>Travel</ion-title>
+  <ion-buttons start>
+    <button (click)="dismiss(null)">
+      <span very-light showWhen="ios">Close</span>
+      <ion-icon very-light name="md-close" showWhen="android,windows"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content padding class="bg-light">
+  <div class="instructions">
+  <h2>The jist</h2>
+    <p>
+      In Chem Caravan you are a chem dealer in the Commonwealth. The aim of the game is to make lots and lots of caps... Unfortunately the wasteland is a dangerous place, it is crawling with raiders and your financiers are not always cooperative.
+    </p>
+
+    <h2>Dealing chems and moving around</h2>
+    <p>
+      The Commonwealth is divided into 9 settlements. At each of these settlements, a variety of chems, with fluctuating prices, are on sale. Not all chems are necessarily on sale at each settlement all of the time, and the normally gentle price fluctuations may be affected by events such as other dealers flooding the market with chems, etc. These special events will cause the prices of certain chems to either plummet or skyrocket which, if timed right, can make you very rich. You will be alerted to any such events upon arriving at a settlement, so pay attention.
+    </p>
+    <p>
+      The main way to make money is to buy and sell chems, buying cheaply at one settlement, and then moving and selling for a profit at another settlement. Bear in mind that you may not be able to afford or carry these chems! You have limited space to carry chems (indicated in the upper right corner or on the status page). You can increase your carrying capacity by purchasing additional pack brahmin for your caravan.
+    </p>
+
+    <h2>Who is located where?</h2>
+    <p>
+      In different locations, there are special facilities you can visit:
+    </p>
+    <ul>
+      <li>The doctor in Diamond City</li>
+      <li>Skinny Malone, the loan shark in Park Street Station</li>
+      <li>Caravan HQ in Bunker Hill</li>
+      <li>The bank in Lexington</li>
+      <li>KL-E-0, the arms dealer in Goodneighbor</li>
+    </ul>
+
+    <h2>Your finances: loans and banks</h2>
+    <p>
+      You start the game with a debt to Skinny Malone of 500 caps. Every turn this accumulates interest, and counts against your total amount of money (which is used as your high score, so it's quite possible to have a negative score). To pay off the loan, you must visit the loan shark at Park Street Station. Don't wait too long or the loan shark might come after you! You are also free to take out a new loan at any time. Skinny won't just give you boatloads of caps, though. Your credit limit is only as high as your net worth, including caps in the bank and any chems you are carrying. Don't worry, though. If you go totally broke, Skinny will still lend you a small number of caps.
+    </p>
+    <p>
+      You can also deposit or withdraw caps from the bank, which is located in Lexington. Putting your caps in the bank prevents them from being stolen if you are mugged (which does occasionally happen). Money in the bank also contributes to your high score.
+    </p>
+
+    <h2>Raiders and combat</h2>
+    <p>
+      On your travels between settlements, you may be attacked by raiders. If you bought guns (from KL-E-0 in Goodneighbor), you can attack the raiders. Otherwise, you will have to run. When you've eliminated all the raiders, you will receive the money they were carrying. If you have sufficient caps, you can also bribe the raiders for 5,000 caps a raider. You also have to give half of the chems you are carrying.
+    </p>
+    <p>
+      Your chance to hit depends on the value of your guns.
+    </p>
+
+    <h2>Building up your caravan</h2>
+    <p>
+      At the Caravan HQ (Bunker Hill) you may purchase additional brahmin for your caravan. Each brahmin in your caravan will allow you to carry an additional 10 chems. However, be wary, as larger brahmin trains are more difficult to manage. As the number of brahmin in your caravan increases, so too does the risk of one running away when you travel between settlements. If one of your brahmin runs away, or is killed in combat, you will lose the chems that it was carrying.
+    </p>
+    <p>
+      You may also hire guards for your caravan. Having more guards with you will deter raiders from mugging or ambushing you while travelling, and can take bullets that might otherwise have hit you or your brahmin. This added protectin comes at a cost, though. In addition to the upfront fee you pay guards to join your caravan, you must also pay them a small portion of your earnings for each profitable trade you make.
+    </p>
+
+    <h2>Health and the doctor</h2>
+    <p>
+      Dealing chems can be very unhealthy. Fortunately you can have yourself fixed up by the doctor (Diamond City). Make sure you stay healthy because a dead dealer's account is erased immediately. You can create a new account, but you will start at aquare one again.
+    </p>
+  </div>
+
+  <button block (click)="dismiss()">
+    Close
+  </button>
+</ion-content>

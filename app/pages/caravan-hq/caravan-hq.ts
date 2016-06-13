@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, Alert} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {SqlService} from '../../providers/services/sql-storage-service';
 
@@ -14,6 +14,10 @@ export class CaravanHqPage {
   private player: Player;
   private notEnoughCaps: boolean;
   private atCapacity: boolean;
+  private brahminPrice: number = 5000;
+  private maxBrahmin: number = 10;
+  private guardPrice: number = 20000;
+  private maxGuards: number = 5;
 
   constructor(nav: NavController, navParams: NavParams, sqlService: SqlService) {
     this.nav = nav;
@@ -25,14 +29,35 @@ export class CaravanHqPage {
   }
 
   buyBrahmin() {
-    if (this.player.caps < 5000) {
-      this.notEnoughCaps = true;
-    } else if (this.player.brahmin >= 10) {
-      this.atCapacity = true;
+    if (this.player.caps < this.brahminPrice) {
+      this.presentErrorAlert('Not enough caps');
+    } else if (this.player.brahmin >= this.maxBrahmin) {
+      this.presentErrorAlert('You can only handle 10 brahmin');
     } else {
       this.player.brahmin += 1;
-      this.player.caps -= 5000;
+      this.player.caps -= this.brahminPrice;
       this.sqlService.savePlayerState(this.player);
     }
+  }
+
+  hireGuard() {
+    if (this.player.caps < this.guardPrice) {
+      this.presentErrorAlert('Not enough caps');
+    } else if (this.player.guards >= this.maxGuards) {
+      this.presentErrorAlert('You can only hire 5 guards');
+    } else {
+      this.player.guards += 1;
+      this.player.caps -= this.guardPrice;
+      this.sqlService.savePlayerState(this.player);
+    }
+  }
+
+  presentErrorAlert(msg: string) {
+    let alert = Alert.create({
+      title: 'Error',
+      message: msg,
+      buttons: ['Dismiss']
+    });
+    this.nav.present(alert);
   }
 }

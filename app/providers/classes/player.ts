@@ -45,8 +45,8 @@ export class Player {
     this.inventory.addChem(chem, quantity);
   }
 
-  sell(chem: Chem, quantity: number) {
-    this.caps += chem.currentPrice * quantity;
+  sell(chem: Chem, quantity: number, guardsShare: number) {
+    this.caps += chem.currentPrice * quantity - guardsShare;
     this.inventory.removeChem(chem, quantity);
   }
 
