@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Alert} from 'ionic-angular';
+import {NavController, ViewController, Modal, Alert} from 'ionic-angular';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementService} from '../../providers/services/settlement-service';
 import {Settlement} from '../../providers/classes/settlement';
@@ -97,6 +97,24 @@ export class LocalLoginPage {
   }
 
   presentInstructionModal() {
-    alert("figure it out for yourself");
+    let instructionModal = Modal.create(InstructionModalPage);
+    this.nav.present(instructionModal);
+  }
+}
+
+@Component({
+  templateUrl: 'build/pages/local-login/instruction-modal.html'
+})
+class InstructionModalPage {
+  private nav: NavController;
+  private viewCtrl: ViewController;
+
+  constructor(nav: NavController, viewCtrl: ViewController) {
+    this.nav = nav;
+    this.viewCtrl = viewCtrl;
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }
