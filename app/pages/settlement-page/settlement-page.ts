@@ -50,6 +50,11 @@ export class SettlementPage {
 			if (playerState) {
 				let playerShadow = JSON.parse(playerState);
 				this.player = new Player(playerShadow.name, playerShadow);
+        //filter out any dumped chems
+        this.availableChems = this.availableChems.filter((chem) => {
+          let playerChems = this.player.inventory.getChemList();
+          return chem.currentPrice > 0 || (chem.name in playerChems);
+        });
 			}
 		}, function(error) {
 			console.error('Failed to load player state', error);
