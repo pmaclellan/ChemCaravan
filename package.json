@@ -36,7 +36,8 @@
     "cordova-sqlite-storage"
   ],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ],
   "name": "chem_caravan",
   "description": "chem_caravan: An Ionic project"
