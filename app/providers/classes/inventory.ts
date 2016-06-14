@@ -7,6 +7,10 @@ export class Inventory {
     this.chems = {};
   }
 
+  getChemList(): { [chem: string]: { quantity: number, price_paid: number } }  {
+    return this.chems;
+  }
+
   getQuantity(chem: Chem): number {
     if (chem.name in this.chems) {
       return this.chems[chem.name].quantity;

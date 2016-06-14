@@ -25,13 +25,15 @@
       <ion-row>
         <ion-col width-33 class="no-vertical-padding">
           <h4 dark>{{chem.name}}</h4>
-          <p dark>{{chem.currentPrice}} caps</p>
+          <p dark *ngIf="chem.currentPrice > 0">{{chem.currentPrice}} caps</p>
           <p dark *ngIf="player.quantityCarrying(chem) > 0">
               {{player.pricePaid(chem)}} avg. paid
           </p>
         </ion-col>
         <ion-col width-33 class="no-vertical-padding">
-          <button block (click)="buy(chem)">Buy</button>
+          <button block (click)="buy(chem)" [disabled]="chem.currentPrice < 0">
+            Buy
+          </button>
         </ion-col>
         <ion-col width-33 class="no-vertical-padding">
           <button danger block (click)="sell(chem)" 

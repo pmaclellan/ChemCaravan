@@ -37,6 +37,7 @@ export class SettlementPage {
     this.player.location = this.settlement.index;
     this.sqlService.savePlayerState(this.player);
     this.availableChems = chemService.generateChemSet();
+    this.addPlayerChemsNotForSale();
     this.priceAlertMessages = this.generatePriceModifiers();
 	}
 
@@ -130,6 +131,15 @@ export class SettlementPage {
       }
     }
     return modifierMessages;
+  }
+
+  addPlayerChemsNotForSale(): void {
+    for (let chemName in this.player.inventory.getChemList()) {
+      if (this.availableChems.find(
+        (chem) => { return chem.name == chemName; }) == undefined) {
+        this.availableChems.push(new Chem(chemName, 0, 0, '', '', -1));
+      }
+    }
   }
 }
 
