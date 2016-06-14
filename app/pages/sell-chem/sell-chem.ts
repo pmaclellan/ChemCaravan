@@ -34,6 +34,12 @@ export class SellChemPage {
     this.nav.pop();
   }
 
+  dump(): void {
+    this.player.inventory.removeChem(this.chem, this.quantity);
+    this.sqlService.savePlayerState(this.player);
+    this.nav.pop();
+  }
+
   getProfitMargin(): number {
     if (this.player.pricePaid(this.chem) > 0) {
       //return the profit margin percentage rounded to two deciml places

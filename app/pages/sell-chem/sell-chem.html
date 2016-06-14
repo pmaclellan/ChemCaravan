@@ -5,16 +5,27 @@
 </ion-navbar>
 
 <ion-content padding class="bg-light">
-  <h2>{{chem.name}} @ {{chem.currentPrice}} caps</h2>
-  <p *ngIf="getProfitMargin() != null">
-    Profit Margin: {{getProfitMargin()}} %
-  </p>
-  <p *ngIf="getProfitMargin() == null">
-    You didn't even pay for these chems...sweet
-  </p>
-  <p *ngIf="player.guards > 0">
-    Guard Share: {{getGuardsShare()}} caps
-  </p>
+  <div *ngIf="chem.currentPrice < 0">
+    <h2>{{chem.name}}</h2>
+    <p>
+      <b>Warning</b>: {{chem.name}} is not sold here!
+    </p>
+    <p>
+      You're dumping your {{chem.name}} if you sell.
+    </p>
+  </div>
+  <div *ngIf="chem.currentPrice > 0">
+    <h2>{{chem.name}} @ {{chem.currentPrice}} caps</h2>
+    <p *ngIf="getProfitMargin() != null">
+      Profit Margin: {{getProfitMargin()}} %
+    </p>
+    <p *ngIf="getProfitMargin() == null">
+      You didn't even pay for these chems...sweet
+    </p>
+    <p *ngIf="player.guards > 0">
+      Guard Share: {{getGuardsShare()}} caps
+    </p>
+  </div>
 
   <div class="spacer">
     <span></span>
@@ -28,7 +39,10 @@
       <ion-label range-right>{{maxSellable}}</ion-label>
     </ion-range>
   </ion-item>
-  <button block (click)="sell()">
+  <button block *ngIf="chem.currentPrice > 0" (click)="sell()">
     Sell for {{quantity * chem.currentPrice}} caps
+  </button>
+  <button block *ngIf="chem.currentPrice < 0" (click)="dump()">
+    Dump {{quantity}} {{chem.name}}
   </button>
 </ion-content>

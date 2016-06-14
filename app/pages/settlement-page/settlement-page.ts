@@ -37,6 +37,7 @@ export class SettlementPage {
     this.player.location = this.settlement.index;
     this.sqlService.savePlayerState(this.player);
     this.availableChems = chemService.generateChemSet();
+    this.addPlayerChemsNotForSale();
     this.priceAlertMessages = this.generatePriceModifiers();
 	}
 
@@ -49,6 +50,11 @@ export class SettlementPage {
 			if (playerState) {
 				let playerShadow = JSON.parse(playerState);
 				this.player = new Player(playerShadow.name, playerShadow);
+        //filter out any dumped chems
+        this.availableChems = this.availableChems.filter((chem) => {
+          let playerChems = this.player.inventory.getChemList();
+          return chem.currentPrice > 0 || (chem.name in playerChems);
+        });
 			}
 		}, function(error) {
 			console.error('Failed to load player state', error);
@@ -130,6 +136,15 @@ export class SettlementPage {
       }
     }
     return modifierMessages;
+  }
+
+  addPlayerChemsNotForSale(): void {
+    for (let chemName in this.player.inventory.getChemList()) {
+      if (this.availableChems.find(
+        (chem) => { return chem.name == chemName; }) == undefined) {
+        this.availableChems.push(new Chem(chemName, 0, 0, '', '', -1));
+      }
+    }
   }
 }
 
