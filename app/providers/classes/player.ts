@@ -11,6 +11,9 @@ export class Player {
   brahmin: number;
   location: number;
   inventory: Inventory;
+  ageOfDebt: number;
+  beatenOnce: boolean;
+  beatenTwice: boolean;
 
   constructor(name: string, playerState?: any) {
     this.name = name;
@@ -25,6 +28,9 @@ export class Player {
     if (playerState) {
       this.inventory.setChems(playerState.inventory.chems);
     }
+    this.ageOfDebt = playerState ? playerState.ageOfDebt : 0;
+    this.beatenOnce = playerState ? playerState.beatenOnce : false;
+    this.beatenTwice = playerState ? playerState.beatenTwice : false;
   }
 
   pricePaid(chem: Chem): number {

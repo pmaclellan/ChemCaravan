@@ -8,6 +8,7 @@ import {ChemService} from '../../providers/services/chem-service';
 import {SqlService} from '../../providers/services/sql-storage-service';
 import {SettlementPage} from '../settlement-page/settlement-page';
 import {EncounterPage} from '../encounter/encounter';
+import {LocalLoginPage} from '../local-login/local-login';
 
 @Component({
   templateUrl: 'build/pages/travel-dispatcher/travel-dispatcher.html',
@@ -53,6 +54,20 @@ export class TravelDispatcherPage {
     } else if (selector < this.chemsFoundChance + this.muggedChance +
                this.encounterChance + this.runawayChance) {
       this.presentRunawayModal();
+    } else if (this.player.debt > 0) {
+      this.player.ageOfDebt += 1;
+      console.log("age of debt increased");
+      if (this.player.ageOfDebt > 12) {
+        this.presentLoanSharkModal('fatal');
+      } else if (this.player.ageOfDebt > 10 && !this.player.beatenTwice) {
+        this.player.beatenTwice = true;
+        this.presentLoanSharkModal('severe');
+      } else if (this.player.ageOfDebt > 5 && !this.player.beatenOnce) {
+        this.player.beatenOnce = true;
+        this.presentLoanSharkModal('minor');
+      } else {
+        this.continueToDestination();
+      }
     } else {
       this.continueToDestination();
     }
@@ -95,6 +110,21 @@ export class TravelDispatcherPage {
       this.continueToDestination();
     });
     this.nav.present(runawayModal);
+  }
+
+  presentLoanSharkModal(severity: string) {
+    let loanSharkModal = Modal.create(LoanSharkModalPage, { 
+      player: this.player,
+      severity: severity });
+    loanSharkModal.onDismiss((player: Player) => {
+      if (player != null) {
+        this.player = player;
+        this.continueToDestination();
+      } else {
+        this.nav.setRoot(LocalLoginPage);
+      }
+    });
+    this.nav.present(loanSharkModal);
   }
 
   triggerEncounter() {
@@ -202,5 +232,48 @@ class ChemsFoundModalPage {
       this.sqlService.savePlayerState(this.player);
     }
     this.viewCtrl.dismiss(this.player);
+  }
+}
+
+@Component({
+  templateUrl: 'build/pages/travel-dispatcher/loan-shark-modal.html',
+  providers: [SqlService]
+})
+class LoanSharkModalPage {
+  private nav: NavController;
+  private navParams: NavParams;
+  private viewCtrl: ViewController;
+  private player: Player;
+  private sqlService: SqlService;
+  private severity: string;
+
+  constructor(nav: NavController, navParams: NavParams,
+    viewCtrl: ViewController, sqlService: SqlService) {
+    this.nav = nav;
+    this.navParams = navParams;
+    this.player = this.navParams.get('player');
+    this.severity = this.navParams.get('severity');
+    this.viewCtrl = viewCtrl;
+    this.sqlService = sqlService;
+  }
+
+  dismiss() {
+    switch (this.severity) {
+      case 'minor':
+        this.player.health = Math.round(this.player.health * 0.75);
+        break;
+      case 'severe':
+        this.player.health = Math.round(this.player.health * 0.25);
+        break;
+      default:
+        console.error("invalid severity value");
+    }
+    this.sqlService.savePlayerState(this.player);
+    this.viewCtrl.dismiss(this.player);
+  }
+
+  newGame() {
+    this.sqlService.clearPlayerState();
+    this.viewCtrl.dismiss(null);
   }
 }
