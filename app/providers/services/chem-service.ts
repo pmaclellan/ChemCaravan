@@ -7,10 +7,16 @@ export class ChemService {
 
   constructor() {
     this.chems = [
-      new Chem('Jet', 400, 0.7, 
+      new Chem('Jet', 400, 0.8, 
         'Addicts are going nuts for jet!', 
         'Call Mama Murphy, jet prices have bottomed out!'),
-      new Chem('Buffout', 750, 0.8,
+      new Chem('Day Tripper', 25000, 0.7,
+        'The addicts are going nuts for day tripper.',
+        'Someone has been selling cheap, homemade day tripper.'),
+      new Chem('UltraJet', 10000, 0.85,
+        'The junkies are jonesing for some ultrajet.',
+        'Ultrajet prices bottomed out!'),
+      new Chem('Buffout', 750, 0.7,
         'Buffout prices are ridiculously high.',
         'The market is flooded with cheap buffout.'),
       new Chem('Mentats', 50, 0.9,
@@ -22,24 +28,18 @@ export class ChemService {
       new Chem('Overdrive', 1000, 0.8,
         'Overdrive prices are through the roof.',
         'Is Fizzco in town or something?'),
-      new Chem('Gwinnet Beer', 25, 0.9,
+      new Chem('Gwinnet Beer', 25, 0.8,
         'The boozehounds are going crazy for Gwinnet beer!',
         'Somebody raided the factory and is selling cheap Gwinnet beer!'),
-      new Chem('Cigarettes', 10, 0.8,
+      new Chem('Cigarettes', 10, 0.9,
         'There is a cigarette shortage, prices are high.',
         'The market is flooded with cheap, homemade cigarettes.'),
       new Chem('Psychobuff', 500, 0.7,
         'Addicts are buying psychobuff at ridiculous prices!',
         'The market is flooded with cheap psychobuff.'),
-      new Chem('Rad-X', 100, 0.6,
+      new Chem('Rad-X', 100, 0.7,
         'There is a rad storm coming, people are clambering for rad-x!',
-        'People aren\'t that worried about radiation right now.'),
-      new Chem('Day Tripper', 25000, 0.2,
-        'The addicts are going nuts for day tripper.',
-        'Someone has been selling cheap, homemade day tripper.'),
-      new Chem('UltraJet', 10000, 0.5,
-        'The junkies are jonesing for some ultrajet.',
-        'Ultrajet prices bottomed out!')
+        'People aren\'t that worried about radiation right now.')
     ]
   }
 
