@@ -57,12 +57,12 @@ export class TravelDispatcherPage {
     } else if (this.player.debt > 0) {
       this.player.ageOfDebt += 1;
       console.log("age of debt increased");
-      if (this.player.ageOfDebt > 6) {
+      if (this.player.ageOfDebt > 12) {
         this.presentLoanSharkModal('fatal');
-      } else if (this.player.ageOfDebt > 4 && !this.player.beatenTwice) {
+      } else if (this.player.ageOfDebt > 10 && !this.player.beatenTwice) {
         this.player.beatenTwice = true;
         this.presentLoanSharkModal('severe');
-      } else if (this.player.ageOfDebt > 2 && !this.player.beatenOnce) {
+      } else if (this.player.ageOfDebt > 5 && !this.player.beatenOnce) {
         this.player.beatenOnce = true;
         this.presentLoanSharkModal('minor');
       } else {
