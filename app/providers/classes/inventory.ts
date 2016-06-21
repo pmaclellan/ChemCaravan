@@ -99,8 +99,13 @@ export class Inventory {
   }
 
   /*------
-    Chems
+    Guns
   -------*/
+  //this is sort of a hack, only meant to be used when reloading player state
+  setGuns(guns: Gun[]) {
+    this.guns = guns;
+  }
+
   getGunList(): Gun[] {
     return this.guns;
   }

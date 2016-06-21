@@ -27,6 +27,7 @@ export class Player {
     this.inventory = new Inventory();
     if (playerState) {
       this.inventory.setChems(playerState.inventory.chems);
+      this.inventory.setGuns(playerState.inventory.guns);
     }
     this.ageOfDebt = playerState ? playerState.ageOfDebt : 0;
     this.beatenOnce = playerState ? playerState.beatenOnce : false;

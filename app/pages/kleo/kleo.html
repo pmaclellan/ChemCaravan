@@ -1,0 +1,28 @@
+<ion-navbar *navbar>
+  <ion-title>
+    KL-E-0
+  </ion-title>
+</ion-navbar>
+
+<ion-content radio-group [(ngModel)]="selectedGun">
+    <p>Caps: {{player.caps}}</p>
+    <p>Guns: {{player.inventory.getGunList().length}}</p>
+    <ion-list radio-group>
+      <ion-list-header>
+        Guns for Sale
+      </ion-list-header>
+      <ion-item *ngFor="let gun of availableGuns">
+        <ion-row>
+          <ion-col width-66 class="no-vertical-padding">
+            <h4 dark>{{gun.name}}</h4>
+            <p dark>{{gun.price}} caps</p>
+          </ion-col>
+          <ion-col width-33 class="no-vertical-padding">
+            <button block (click)="buy(gun)">
+              Buy
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+</ion-content>

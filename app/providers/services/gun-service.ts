@@ -7,11 +7,11 @@ export class GunService {
 
   constructor() {
     this.guns = [
-      new Gun('10mm Pistol', 200, 0.7, 40, 10),
-      new Gun('Hunting Rifle', 500, 0.8, 60, 10),
-      new Gun('Submachine Gun', 1000, 0.9, 80, 10),
-      new Gun('Laser Rifle', 2000, 0.95, 100, 10),
-      new Gun('Alien Blaster', 5000, 0.99, 150, 10)
+      new Gun('10mm Pistol', 200, 0.5, 10),
+      new Gun('Hunting Rifle', 500, 0.6, 10),
+      new Gun('Submachine Gun', 1000, 0.7, 10),
+      new Gun('Laser Rifle', 2000, 0.8, 10),
+      new Gun('Alien Blaster', 5000, 0.9, 10)
     ]
   }
 
