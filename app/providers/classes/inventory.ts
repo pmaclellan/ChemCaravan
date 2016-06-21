@@ -1,12 +1,18 @@
 import {Chem} from './chem';
+import {Gun} from './gun';
 
 export class Inventory {
   private chems: { [chem: string] : {quantity: number, price_paid: number } };
+  private guns: Gun[];
 
   constructor() {
     this.chems = {};
+    this.guns = [];
   }
 
+  /*------
+    Chems
+  -------*/
   getChemList(): { [chem: string]: { quantity: number, price_paid: number } }  {
     return this.chems;
   }
@@ -89,6 +95,52 @@ export class Inventory {
       if (this.chems[key].quantity <= 0) {
         delete this.chems[key];
       }
+    }
+  }
+
+  /*------
+    Guns
+  -------*/
+  //this is sort of a hack, only meant to be used when reloading player state
+  setGuns(guns: Gun[]) {
+    this.guns = guns;
+  }
+
+  getGunList(): Gun[] {
+    return this.guns;
+  }
+
+  getBestGun(): Gun {
+    if (this.guns.length > 0) {
+      return this.guns[0];
+    } else {
+      return null;
+    }
+  }
+
+  addGun(gun: Gun) {
+    //maintain sorted list of guns with best guns first
+    for (let i = 0; i < this.guns.length; i += 1) {
+      if (this.guns[i].price < gun.price) {
+        this.guns.splice(i, 0, gun);
+        return;
+      }
+    }
+    this.guns.push(gun);
+  }
+
+  removeGun(gun: Gun) {
+    for (let i = 0; i < this.guns.length; i += 1) {
+      if (this.guns[i].name = gun.name) {
+        this.guns.splice(i, 1);
+      }
+    }
+  }
+
+  shootGun() {
+    this.guns[0].ammo -= 1;
+    if (this.guns[0].ammo <= 0) {
+      this.guns.splice(0, 1);
     }
   }
 }

@@ -27,6 +27,7 @@ export class Player {
     this.inventory = new Inventory();
     if (playerState) {
       this.inventory.setChems(playerState.inventory.chems);
+      this.inventory.setGuns(playerState.inventory.guns);
     }
     this.ageOfDebt = playerState ? playerState.ageOfDebt : 0;
     this.beatenOnce = playerState ? playerState.beatenOnce : false;
@@ -54,6 +55,10 @@ export class Player {
   sell(chem: Chem, quantity: number, guardsShare: number) {
     this.caps += chem.currentPrice * quantity - guardsShare;
     this.inventory.removeChem(chem, quantity);
+  }
+
+  shoot() {
+    this.inventory.shootGun();
   }
 
   //Used to determine maximum loan amount

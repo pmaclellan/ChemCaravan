@@ -1,0 +1,32 @@
+button {
+  min-height: 35px;
+  height: 100%;
+}
+
+h1 {
+  color: color($colors, very-light);
+  font-size: larger;
+  font-weight: bold;
+}
+
+p {
+  text-align: center;
+}
+
+.bg-light {
+  background: color($colors, light);
+}
+
+.bg-medium {
+  background: color($colors, medium);
+}
+
+.no-vertical-padding {
+  padding: 0px 5px 0px 5px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

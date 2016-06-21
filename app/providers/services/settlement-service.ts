@@ -4,6 +4,7 @@ import {LoansharkPage} from '../../pages/loanshark/loanshark';
 import {CaravanHqPage} from '../../pages/caravan-hq/caravan-hq';
 import {BankPage} from '../../pages/bank/bank';
 import {DoctorPage} from '../../pages/doctor/doctor';
+import {GunDealerPage} from '../../pages/kleo/kleo';
 
 @Injectable()
 export class SettlementService {
@@ -20,7 +21,8 @@ export class SettlementService {
                      { name: 'Caravan HQ', component: CaravanHqPage }),
       new Settlement(4, 'Lexington', '/img/settlements/concord-aerial.jpg', 
                      { name: 'Bank', component: BankPage }),
-      new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg', null),
+      new Settlement(5, 'Goodneighbor', '/img/settlements/concord-aerial.jpg',
+                     { name: 'KL-E-0', component: GunDealerPage }),
       new Settlement(6, 'Jamaica Plain', '/img/settlements/concord-aerial.jpg', null),
       new Settlement(7, 'Quincy', '/img/settlements/concord-aerial.jpg', null),
       new Settlement(8, 'Cambridge', '/img/settlements/concord-aerial.jpg', null)

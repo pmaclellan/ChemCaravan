@@ -1,0 +1,30 @@
+<ion-navbar *navbar>
+  <ion-title>
+    <h1>KL-E-0</h1>
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="bg-light">
+  <div class="bg-medium">
+    <p very-light>Caps: {{player.caps}}</p>
+    <p very-light>Guns: {{player.inventory.getGunList().length}}</p>
+  </div>
+    <ion-list>
+      <ion-list-header>
+        Guns for Sale
+      </ion-list-header>
+      <ion-item class="bg-light" *ngFor="let gun of availableGuns">
+        <ion-row>
+          <ion-col width-66 class="no-vertical-padding">
+            <h4 dark>{{gun.name}}</h4>
+            <p dark>{{gun.price}} caps</p>
+          </ion-col>
+          <ion-col width-33 class="no-vertical-padding">
+            <button block (click)="buy(gun)">
+              Buy
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+</ion-content>

@@ -38,6 +38,22 @@
         {{player.brahmin}}
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        Gun equipped
+      </ion-col>
+      <ion-col>
+        {{player.inventory.getBestGun() != null ? player.inventory.getBestGun().name : 'None'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Ammo
+      </ion-col>
+      <ion-col>
+        {{player.inventory.getBestGun() != null ? player.inventory.getBestGun().ammo : '0'}}
+      </ion-col>
+    </ion-row>
   </div>
 
   <div class="spacer">
@@ -65,7 +81,7 @@
         Run ({{escapePercentage()}})
       </button>
       <button block danger class="bottom-button" 
-              (click)="shoot()" [disabled]="actionsDisabled">
+              (click)="shoot()" [disabled]="actionsDisabled || player.inventory.getBestGun() == null">
         Shoot ({{hitPercentage()}})
       </button>
       <button block class="bottom-button"

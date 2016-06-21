@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Player} from '../../providers/classes/player';
 import {Chem} from '../../providers/classes/chem';
+import {Gun} from '../../providers/classes/gun';
 import {Settlement} from '../../providers/classes/settlement';
 import {SettlementPage} from '../settlement-page/settlement-page';
 import {LocalLoginPage} from '../local-login/local-login';
@@ -15,19 +16,24 @@ export class EncounterPage {
   private nav: NavController;
   private navParams: NavParams;
   private sqlService: SqlService;
+
   private player: Player;
   private destination: Settlement;
+
   private numRaiders: number;
   private raiderMoney: number;
-  private escapeChance: number;
-  private playerHitChance: number;
-  private raiderHitChance: number;
   private raiderDamage: number;
+
+  private escapeChance: number;
+  private raiderHitChance: number;
+
   private playerEscaped: boolean;
   private playerDied: boolean;
+
   private playerResultMessage: string;
   private statusMessage: string;
   private raiderResultMessage: string;
+
   private actionsDisabled: boolean;
 
   constructor(nav: NavController, navParams: NavParams, sqlService: SqlService) {
@@ -39,7 +45,6 @@ export class EncounterPage {
     this.numRaiders = Math.floor(Math.random() * 10 + 1);
     this.raiderMoney = Math.floor(Math.random() * 5000 + 1000) * this.numRaiders;
     this.escapeChance = 0.75 - (this.numRaiders * 0.05);
-    this.playerHitChance = 0.75;
     this.raiderHitChance = 0.25;
     this.raiderDamage = 10;
     this.playerEscaped = false;
@@ -65,8 +70,9 @@ export class EncounterPage {
 
   shoot() {
     this.actionsDisabled = true;
+    this.player.inventory.shootGun(); //decrease ammo
     let chance = Math.random();
-    if (chance < this.playerHitChance) {
+    if (chance < this.player.inventory.getBestGun().accuracy) {
       this.playerResultMessage = 'You killed a raider!';
       this.numRaiders = Number(this.numRaiders) - 1;
       if (this.numRaiders == 0) {
@@ -137,7 +143,11 @@ export class EncounterPage {
   }
 
   hitPercentage(): string {
-    return Math.floor(this.playerHitChance * 100) + '%';
+    if (this.player.inventory.getBestGun() != null) {
+      return Math.floor(this.player.inventory.getBestGun().accuracy * 100) + '%';
+    } else {
+      return 0 + '%';
+    }
   }
 
   playerHit() {
