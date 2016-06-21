@@ -1,6 +1,3 @@
-$light:   #F2E2C1;
-$dark:    #89714D;
-
 button {
   min-height: 35px;
   height: 100%;
@@ -12,8 +9,16 @@ h1 {
   font-weight: bold;
 }
 
-.light-bg {
-  background: $light;
+p {
+  text-align: center;
+}
+
+.bg-light {
+  background: color($colors, light);
+}
+
+.bg-medium {
+  background: color($colors, medium);
 }
 
 .no-vertical-padding {
