@@ -38,6 +38,14 @@
         {{player.brahmin}}
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        Gun equipped
+      </ion-col>
+      <ion-col>
+        {{player.inventory.getBestGun() != null ? player.inventory.getBestGun().name : 'None'}}
+      </ion-col>
+    </ion-row>
   </div>
 
   <div class="spacer">

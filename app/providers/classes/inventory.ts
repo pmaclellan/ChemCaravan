@@ -105,7 +105,16 @@ export class Inventory {
     return this.guns;
   }
 
+  getBestGun(): Gun {
+    if (this.guns.length > 0) {
+      return this.guns[0];
+    } else {
+      return null;
+    }
+  }
+
   addGun(gun: Gun) {
+    //maintain sorted list of guns with best guns first
     for (let i = 0; i < this.guns.length; i += 1) {
       if (this.guns[i].price < gun.price) {
         this.guns.splice(i, 0, gun);
