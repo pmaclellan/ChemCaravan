@@ -36,8 +36,8 @@ export class TravelDispatcherPage {
     this.messages = ["funny message 0", "funny message 1", "funny message 2"];
     let index = Math.floor(Math.random() * this.messages.length);
     this.message = this.messages[index];
-    this.muggedChance = 0.02 - this.player.guards * 0.003;
-    this.encounterChance = 0.3 - this.player.guards * 0.04;
+    this.muggedChance = 0.02 - this.player.guards * 0.0035;
+    this.encounterChance = 0.33 - this.player.guards * 0.06;
     this.runawayChance = 0.0 + this.player.brahmin * 0.015;
   }
 
